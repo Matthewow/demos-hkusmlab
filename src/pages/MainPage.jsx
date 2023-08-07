@@ -4,6 +4,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import {
+  Alert,
   Box,
   Button,
   Card,
@@ -14,6 +15,7 @@ import {
   MenuItem,
   Popover,
   Select,
+  Snackbar,
   Stack,
   TextField,
 } from '@mui/material'
@@ -21,10 +23,41 @@ import { NavBar } from '../components/NavBar'
 import { PopoverIconTitle } from '../components/PopoverIconTitle'
 import Lottie from 'lottie-react'
 import animationData from './animation_order.json'
+import CSVReader from 'react-csv-reader'
+import { CSVUploader } from '../components/CSVUploader'
 
 export function MainPage(props) {
   const [algotype, setAlgotype] = useState('')
   const [radius, setRadius] = useState(0)
+  const [driverData, setDriverData] = useState(null)
+  const [orderData, setOrderData] = useState(null)
+  const [alertContent, setAlertContent] = useState('')
+  const [alertStatus, setAlertStatus] = useState(false)
+  const [alerttType, setAlertType] = useState('success')
+
+  const handleSubmit = () => {
+    if (!algotype || !radius) {
+      setAlertContent('Please fill in all the fields')
+      setAlertType('error')
+      setAlertStatus(true)
+      return
+    }
+
+    if (!(typeof radius === 'number' && radius >= 1 && radius <= 1000)) {
+      setAlertContent('Radius should be a number between 1 - 1000')
+      setAlertType('error')
+      setAlertStatus(true)
+      return
+    }
+    const payload = {
+      algotype: algotype,
+      radius: radius,
+      driverData: driverData,
+      orderData: orderData,
+    }
+    console.log(payload)
+    setAlertContent('submit success')
+  }
 
   return (
     <React.Fragment>
@@ -32,7 +65,7 @@ export function MainPage(props) {
 
       <Container sx={{ mt: 20 }} maxWidth="xl">
         <Grid container spacing={2}>
-          <Grid item lg={5}>
+          <Grid item lg={4}>
             <Card variant="elevation" sx={{ paddingX: 3, paddingBottom: 3 }}>
               <Typography variant="h5" sx={{ paddingY: 3 }}>
                 Inputs
@@ -95,46 +128,86 @@ export function MainPage(props) {
                 variant="outlined"
                 onChange={(e) => setRadius(e.target.value)}
               />
-              <Divider variant="fullWidth" />
 
               <PopoverIconTitle
                 title="Driver Data Table"
                 popoverContent={
                   <Typography sx={{ p: 1 }} variant="body1">
-                    Driver Data Table here
+                    Driver Data Table should follow the format here
+                    driver_id,driver_region,driver_lat, driver_lng
                   </Typography>
                 }
               />
 
-              <Button variant="outlined">Upload CSV file</Button>
+              <CSVUploader setterFuc={setDriverData} currentData={driverData} />
 
               <PopoverIconTitle
                 title="Order Data Table"
                 popoverContent={
                   <Typography sx={{ p: 1 }} variant="body1">
-                    Order Data Table here
+                    Order Data Table should follow the format here
+                    order_id,order_region,order_lat, order_lng
                   </Typography>
                 }
               />
+              <CSVUploader setterFuc={setOrderData} currentData={orderData} />
 
-              <Button variant="outlined">Upload CSV file</Button>
+              <Divider variant="fullWidth" sx={{ mt: 3, marginBottom: 3 }} />
+              <Stack justifyContent="flex-end" direction="row">
+                <Button
+                  variant="contained"
+                  color="info"
+                  sx={{ marginRight: 2 }}
+                  onClick={handleSubmit}
+                >
+                  submit
+                </Button>
+              </Stack>
             </Card>
           </Grid>
 
-          <Grid item lg={7}>
-            <Card variant="elevation" sx={{ p: 3 }}>
+          <Grid item lg={8}>
+            <Card variant="elevation" sx={{ px: 3 }}>
               <Typography variant="h5" sx={{ paddingY: 3 }}>
                 Results
               </Typography>
-              <Container>
-                <Box maxWidth="50%">
-                  <Lottie loop={false} animationData={animationData} />
-                </Box>
+              <Divider variant="fullWidth" />
+              <Container sx={{ paddingY: 3 }}>
+                <Stack
+                  direction="column"
+                  spacing={2}
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Box maxWidth="50%">
+                    <Lottie loop={false} animationData={animationData} />
+                  </Box>
+                  <Typography variant="subtitle1" sx={{ color: 'grey' }}>
+                    waitting for submission
+                  </Typography>
+                </Stack>
               </Container>
             </Card>
           </Grid>
         </Grid>
       </Container>
+      <Snackbar
+        open={alertStatus}
+        autoHideDuration={4000}
+        onClose={() => {
+          setAlertStatus(false)
+        }}
+      >
+        <Alert
+          severity={alerttType}
+          sx={{ width: '100%' }}
+          onClose={() => {
+            setAlertStatus(false)
+          }}
+        >
+          {alertContent}
+        </Alert>
+      </Snackbar>
     </React.Fragment>
   )
 }
