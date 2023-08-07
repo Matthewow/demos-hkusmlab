@@ -21,7 +21,12 @@ export const NavBar = () => {
             </Typography>
           </Stack>
 
-          <Button sx={{ color: 'white' }}>
+          <Button
+            sx={{ color: 'white' }}
+            onClick={() => {
+              window.open('https://sites.google.com/view/kejintao')
+            }}
+          >
             <Typography>ABOUT US</Typography>
           </Button>
         </Stack>
