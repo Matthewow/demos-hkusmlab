@@ -65,8 +65,11 @@ export function MainPage(props) {
 
       <Container sx={{ mt: 20 }} maxWidth="xl">
         <Grid container spacing={2}>
-          <Grid item lg={4}>
-            <Card variant="elevation" sx={{ paddingX: 3, paddingBottom: 3 }}>
+          <Grid item lg={4} md={4} xs={12} sm={5}>
+            <Card
+              variant="elevation"
+              sx={{ paddingX: 3, paddingBottom: 3, boxShadow: 5 }}
+            >
               <Typography variant="h5" sx={{ paddingY: 3 }}>
                 Inputs
               </Typography>
@@ -166,8 +169,11 @@ export function MainPage(props) {
             </Card>
           </Grid>
 
-          <Grid item lg={8}>
-            <Card variant="elevation" sx={{ px: 3 }}>
+          <Grid item lg={8} md={8} xs={12} sm={7}>
+            <Card
+              variant="elevation"
+              sx={{ px: 3, height: '100%', boxShadow: 5 }}
+            >
               <Typography variant="h5" sx={{ paddingY: 3 }}>
                 Results
               </Typography>
@@ -178,6 +184,7 @@ export function MainPage(props) {
                   spacing={2}
                   justifyContent="center"
                   alignItems="center"
+                  sx={{ mt: 10 }}
                 >
                   <Box maxWidth="50%">
                     <Lottie loop={false} animationData={animationData} />
