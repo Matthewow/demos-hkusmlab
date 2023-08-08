@@ -40,23 +40,22 @@ export function MainPage(props) {
       setAlertContent('Please fill in all the fields')
       setAlertType('error')
       setAlertStatus(true)
-      return
-    }
-
-    if (!(typeof radius === 'number' && radius >= 1 && radius <= 1000)) {
+    } else if (!(!isNaN(radius) && radius >= 1 && radius <= 1000)) {
       setAlertContent('Radius should be a number between 1 - 1000')
       setAlertType('error')
       setAlertStatus(true)
-      return
+    } else {
+      const payload = {
+        algotype: algotype,
+        radius: radius,
+        driverData: driverData,
+        orderData: orderData,
+      }
+      console.log(payload)
+      setAlertType('success')
+      setAlertContent('submit success')
+      setAlertStatus(true)
     }
-    const payload = {
-      algotype: algotype,
-      radius: radius,
-      driverData: driverData,
-      orderData: orderData,
-    }
-    console.log(payload)
-    setAlertContent('submit success')
   }
 
   return (
