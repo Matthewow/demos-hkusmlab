@@ -31,10 +31,11 @@ export function MainPage() {
   const [alertContent, setAlertContent] = useState('')
   const [alertStatus, setAlertStatus] = useState(false)
   const [alerttType, setAlertType] = useState('success')
+  const [resultLoaded, setResultLoaded] = useState(false)
 
   const handleSubmit = () => {
     if (!algotype || !radius) {
-      setAlertContent('Please fill in all the fields')
+      setAlertContent('Please fill in all the fields!')
       setAlertType('error')
       setAlertStatus(true)
     } else if (
@@ -45,7 +46,7 @@ export function MainPage() {
       )
     ) {
       setAlertContent(
-        `Radius should be a number between ${appConfigs.rangeMIN} - ${appConfigs.rangeMAX}}`
+        `Radius should be a number between ${appConfigs.rangeMIN} - ${appConfigs.rangeMAX}!`
       )
       setAlertType('error')
       setAlertStatus(true)
@@ -58,8 +59,9 @@ export function MainPage() {
       }
       console.log(payload)
       setAlertType('success')
-      setAlertContent('submit success')
+      setAlertContent('Submit successfully!')
       setAlertStatus(true)
+      setResultLoaded(true)
     }
   }
 
@@ -180,9 +182,31 @@ export function MainPage() {
               variant="elevation"
               sx={{ px: 3, height: '100%', boxShadow: 5 }}
             >
-              <Typography variant="h5" sx={{ paddingY: 3 }}>
-                Results
-              </Typography>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                width={'100%'}
+                sx={{ paddingY: 3 }}
+              >
+                <Typography variant="h5">Results</Typography>
+                <Stack direction="row" spacing={2}>
+                  <Button
+                    variant="contained"
+                    color="info"
+                    disabled={!resultLoaded}
+                  >
+                    Download as CSV
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="info"
+                    disabled={!resultLoaded}
+                  >
+                    Show on Map
+                  </Button>
+                </Stack>
+              </Stack>
               <Divider variant="fullWidth" />
               <Container sx={{ paddingY: 3 }}>
                 <Stack
