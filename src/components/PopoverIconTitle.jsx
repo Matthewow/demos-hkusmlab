@@ -35,7 +35,9 @@ export const PopoverIconTitle = (props) => {
         onClose={() => setAnchorEl(null)}
         disableRestoreFocus
       >
-        <Box maxWidth={300}>{props.popoverContent}</Box>
+        <Box maxWidth={400} sx={{ p: 2 }}>
+          {props.popoverContent}
+        </Box>
       </Popover>
     </Stack>
   )

@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import AppBar from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import {
@@ -13,7 +11,6 @@ import {
   Grid,
   InputLabel,
   MenuItem,
-  Popover,
   Select,
   Snackbar,
   Stack,
@@ -23,10 +20,10 @@ import { NavBar } from '../components/NavBar'
 import { PopoverIconTitle } from '../components/PopoverIconTitle'
 import Lottie from 'lottie-react'
 import animationData from './animation_order.json'
-import CSVReader from 'react-csv-reader'
 import { CSVUploader } from '../components/CSVUploader'
+import { appConfigs } from '../appConfigs'
 
-export function MainPage(props) {
+export function MainPage() {
   const [algotype, setAlgotype] = useState('')
   const [radius, setRadius] = useState(0)
   const [driverData, setDriverData] = useState(null)
@@ -40,8 +37,16 @@ export function MainPage(props) {
       setAlertContent('Please fill in all the fields')
       setAlertType('error')
       setAlertStatus(true)
-    } else if (!(!isNaN(radius) && radius >= 1 && radius <= 1000)) {
-      setAlertContent('Radius should be a number between 1 - 1000')
+    } else if (
+      !(
+        !isNaN(radius) &&
+        radius >= appConfigs.rangeMIN &&
+        radius <= appConfigs.rangeMAX
+      )
+    ) {
+      setAlertContent(
+        `Radius should be a number between ${appConfigs.rangeMIN} - ${appConfigs.rangeMAX}}`
+      )
       setAlertType('error')
       setAlertStatus(true)
     } else {
@@ -61,7 +66,6 @@ export function MainPage(props) {
   return (
     <React.Fragment>
       <NavBar />
-
       <Container sx={{ mt: 20 }} maxWidth="xl">
         <Grid container spacing={2}>
           <Grid item lg={4} md={4} xs={12} sm={5}>
@@ -76,21 +80,21 @@ export function MainPage(props) {
               <PopoverIconTitle
                 title="Algorithm Type"
                 popoverContent={
-                  <>
-                    <Typography sx={{ p: 1 }} variant="body1">
-                      Broadcasting In the broadcasting phase, the system
-                      announces available orders to drivers. This is typically
-                      done within a certain radius or zone to ensure that only
-                      nearby drivers, who are likely to be able to fulfill the
-                      order in a timely manner, receive the broadcast.
+                  <Box>
+                    <Typography variant="subtitle1">Broadcast mode:</Typography>
+                    <Typography variant="body2">
+                      The e-hailing firm broadcasts the requests received from
+                      passengers to taxi drivers, who have freedom to select an
+                      order.
                     </Typography>
-                    <Divider />
-                    <Typography sx={{ p: 1 }} variant="body1">
-                      Dispatching Dispatching involves assigning the order to a
-                      specific driver. Once the drivers have received the
-                      broadcast, they can choose to accept or reject the order.
+                    <Divider sx={{ marginY: 1 }} />
+                    <Typography variant="subtitle1">Dispatch mode:</Typography>
+                    <Typography variant="body2">
+                      The platform assigns the orders requested by passengers to
+                      specific drivers, who are normally not allowed to reject
+                      the assignment.
                     </Typography>
-                  </>
+                  </Box>
                 }
               />
               <FormControl fullWidth>
@@ -118,15 +122,17 @@ export function MainPage(props) {
               <PopoverIconTitle
                 title="Radius"
                 popoverContent={
-                  <Typography sx={{ p: 1 }} variant="body1">
-                    Radius means blabla, with range should be from 1 - 1000
+                  <Typography sx={{ p: 1 }} variant="body2">
+                    {`Radius refers to the distance within which a passenger can
+                    hire a driver. This distance should be between ${appConfigs.rangeMIN} to ${appConfigs.rangeMAX} 
+                    meters.`}
                   </Typography>
                 }
               />
               <TextField
                 fullWidth
                 id="outlined-basic"
-                label="Number of range 1 - 1000"
+                label={`Number of range ${appConfigs.rangeMIN} - ${appConfigs.rangeMAX} | Unit: meter`}
                 variant="outlined"
                 onChange={(e) => setRadius(e.target.value)}
               />
@@ -135,8 +141,9 @@ export function MainPage(props) {
                 title="Driver Data Table"
                 popoverContent={
                   <Typography sx={{ p: 1 }} variant="body1">
-                    Driver Data Table should follow the format here
-                    driver_id,driver_region,driver_lat, driver_lng
+                    Driver Data Table should follow the format:
+                    <br />
+                    driver_id, driver_region, driver_lat, driver_lng
                   </Typography>
                 }
               />
@@ -147,8 +154,8 @@ export function MainPage(props) {
                 title="Order Data Table"
                 popoverContent={
                   <Typography sx={{ p: 1 }} variant="body1">
-                    Order Data Table should follow the format here
-                    order_id,order_region,order_lat, order_lng
+                    Order Data Table should follow the format:
+                    <br /> order_id, order_region, order_lat, order_lng
                   </Typography>
                 }
               />

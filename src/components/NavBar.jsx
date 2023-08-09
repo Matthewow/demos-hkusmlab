@@ -2,7 +2,7 @@ import { AppBar, Box, Button, Stack, Toolbar, Typography } from '@mui/material'
 
 export const NavBar = () => {
   return (
-    <AppBar sx={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}>
+    <AppBar sx={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
       <Toolbar sx={{ height: 90 }} variant="regular">
         <Stack
           direction="row"
