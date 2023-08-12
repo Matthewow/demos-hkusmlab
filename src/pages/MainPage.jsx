@@ -25,7 +25,7 @@ import { appConfigs } from '../appConfigs'
 
 export function MainPage() {
   const [algotype, setAlgotype] = useState('')
-  const [radius, setRadius] = useState(0)
+  const [radius, setRadius] = useState(undefined)
   const [driverData, setDriverData] = useState(null)
   const [orderData, setOrderData] = useState(null)
   const [alertContent, setAlertContent] = useState('')
@@ -68,16 +68,33 @@ export function MainPage() {
   return (
     <React.Fragment>
       <NavBar />
-      <Container sx={{ mt: 20 }} maxWidth="xl">
+      <Container sx={{ mt: 15, mb: 10 }} maxWidth="xl">
         <Grid container spacing={2}>
           <Grid item lg={4} md={4} xs={12} sm={5}>
             <Card
               variant="elevation"
               sx={{ paddingX: 3, paddingBottom: 3, boxShadow: 5 }}
             >
-              <Typography variant="h5" sx={{ paddingY: 3 }}>
-                Inputs
-              </Typography>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                width={'100%'}
+                sx={{ paddingY: 3 }}
+              >
+                <Typography variant="h5">Inputs</Typography>
+                <Button
+                  variant="contained"
+                  color="info"
+                  disabled={algotype === '' && radius === undefined}
+                  onClick={() => {
+                    setAlgotype('')
+                    setRadius(undefined)
+                  }}
+                >
+                  Clear
+                </Button>
+              </Stack>
               <Divider variant="fullWidth" />
               <PopoverIconTitle
                 title="Algorithm Type"
@@ -136,6 +153,7 @@ export function MainPage() {
                 id="outlined-basic"
                 label={`Number of range ${appConfigs.rangeMIN} - ${appConfigs.rangeMAX} | Unit: meter`}
                 variant="outlined"
+                value={radius}
                 onChange={(e) => setRadius(e.target.value)}
               />
 
