@@ -252,6 +252,7 @@ export function MainPage() {
         onClose={() => {
           setAlertStatus(false)
         }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
         <Alert
           severity={alerttType}
