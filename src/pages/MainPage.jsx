@@ -23,6 +23,7 @@ import animationData from './animation_order.json'
 import { CSVUploader } from '../components/CSVUploader'
 import { appConfigs } from '../appConfigs'
 import { MatchResult } from '../components/MatchResult'
+import { post } from '../utils/http'
 
 export function MainPage() {
   const [algotype, setAlgotype] = useState('')
@@ -34,11 +35,12 @@ export function MainPage() {
   const [alerttType, setAlertType] = useState('success')
   const [resultLoaded, setResultLoaded] = useState(false)
 
-  const handleSubmit = () => {
+  const inputChecking = () => {
     if (!algotype || !radius) {
       setAlertContent('Please fill in all the fields!')
       setAlertType('error')
       setAlertStatus(true)
+      return false
     } else if (
       !(
         !isNaN(radius) &&
@@ -51,7 +53,13 @@ export function MainPage() {
       )
       setAlertType('error')
       setAlertStatus(true)
-    } else {
+      return false
+    }
+    return true
+  }
+
+  const handleSubmit = () => {
+    if (inputChecking()) {
       const payload = {
         algotype: algotype,
         radius: radius,
@@ -59,10 +67,17 @@ export function MainPage() {
         orderData: orderData,
       }
       console.log(payload)
-      setAlertType('success')
-      setAlertContent('Submit successfully!')
-      setAlertStatus(true)
-      setResultLoaded(true)
+      post(payload)
+        .then((res) => {
+          console.log(res)
+          setAlertType('success')
+          setAlertContent('Submit successfully!')
+          setAlertStatus(true)
+          setResultLoaded(true)
+        })
+        .catch((err) => {
+          console.error(err)
+        })
     }
   }
 
