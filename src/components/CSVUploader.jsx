@@ -5,11 +5,11 @@ import CSVReader from 'react-csv-reader'
 export const CSVUploader = (props) => {
   const { setterFuc, currentData } = props
   const [info, setInfo] = useState('')
-  const handleCSVUpload = (data, fileInfo) => {
-    const dataFromCSV = data.map((row) => row[0])
+  const handleCSVUpload = (data, fileInfo, originalFile) => {
     const { name, size } = fileInfo
     setInfo(`${name} - ${size}KB`)
-    setterFuc(dataFromCSV)
+    setterFuc(originalFile)
+    console.log(data)
   }
   const handleDelete = () => {
     setInfo('')

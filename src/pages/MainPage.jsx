@@ -34,6 +34,7 @@ export function MainPage() {
   const [alertStatus, setAlertStatus] = useState(false)
   const [alerttType, setAlertType] = useState('success')
   const [resultLoaded, setResultLoaded] = useState(false)
+  const [resultData, setResultData] = useState(null)
 
   const inputChecking = () => {
     if (!algotype || !radius) {
@@ -60,16 +61,27 @@ export function MainPage() {
 
   const handleSubmit = () => {
     if (inputChecking()) {
-      const payload = {
-        algotype: algotype,
-        radius: radius,
-        driverData: driverData,
-        orderData: orderData,
-      }
-      console.log(payload)
-      post(payload)
+      const formData = new FormData()
+      formData.append('method', algotype)
+      formData.append('radius', parseInt(radius) / 1000)
+      formData.append('driver_info', driverData)
+      formData.append('order_info', orderData)
+      console.log('formData', formData)
+      post(formData)
         .then((res) => {
-          console.log(res)
+          console.log('res', res)
+          let transformedData = res.map((item, index) => {
+            return {
+              id: index + 1,
+              order_id: item.order_id,
+              order_region: item.order_region,
+              driver_id: item.driver_id,
+              driver_region: item.driver_region,
+              radius: item.radius,
+            }
+          })
+          console.log('transformedData', transformedData)
+          setResultData(transformedData)
           setAlertType('success')
           setAlertContent('Submit successfully!')
           setAlertStatus(true)
@@ -102,10 +114,19 @@ export function MainPage() {
                 <Button
                   variant="contained"
                   color="info"
-                  disabled={algotype === '' && radius === ''}
+                  disabled={
+                    algotype === '' &&
+                    radius === '' &&
+                    !driverData &&
+                    !orderData
+                  }
                   onClick={() => {
                     setAlgotype('')
                     setRadius('')
+                    setResultData(null)
+                    setResultLoaded(false)
+                    setDriverData(null)
+                    setOrderData(null)
                   }}
                 >
                   Clear
@@ -146,8 +167,8 @@ export function MainPage() {
                   <MenuItem key="dispatch" value={'dispatch'}>
                     <Typography variant="body1">Dispatch</Typography>
                   </MenuItem>
-                  <MenuItem value={'boardcast'}>
-                    <Typography variant="body1">Boardcast</Typography>
+                  <MenuItem value={'broadcasting'}>
+                    <Typography variant="body1">Broadcast</Typography>
                   </MenuItem>
                 </Select>
               </FormControl>
@@ -244,7 +265,7 @@ export function MainPage() {
               <Divider variant="fullWidth" />
               <Container sx={{ paddingY: 3 }}>
                 {resultLoaded ? (
-                  <MatchResult />
+                  <MatchResult rows={resultData} />
                 ) : (
                   <Stack
                     direction="column"
