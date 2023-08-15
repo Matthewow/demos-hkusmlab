@@ -22,6 +22,7 @@ import Lottie from 'lottie-react'
 import animationData from './animation_order.json'
 import { CSVUploader } from '../components/CSVUploader'
 import { appConfigs } from '../appConfigs'
+import { MatchResult } from '../components/MatchResult'
 
 export function MainPage() {
   const [algotype, setAlgotype] = useState('')
@@ -227,20 +228,24 @@ export function MainPage() {
               </Stack>
               <Divider variant="fullWidth" />
               <Container sx={{ paddingY: 3 }}>
-                <Stack
-                  direction="column"
-                  spacing={2}
-                  justifyContent="center"
-                  alignItems="center"
-                  sx={{ mt: 10 }}
-                >
-                  <Box maxWidth="50%">
-                    <Lottie loop={false} animationData={animationData} />
-                  </Box>
-                  <Typography variant="subtitle1" sx={{ color: 'grey' }}>
-                    waitting for submission
-                  </Typography>
-                </Stack>
+                {resultLoaded ? (
+                  <MatchResult />
+                ) : (
+                  <Stack
+                    direction="column"
+                    spacing={2}
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{ mt: 10 }}
+                  >
+                    <Box maxWidth="50%">
+                      <Lottie loop={false} animationData={animationData} />
+                    </Box>
+                    <Typography variant="subtitle1" sx={{ color: 'grey' }}>
+                      waitting for submission
+                    </Typography>
+                  </Stack>
+                )}
               </Container>
             </Card>
           </Grid>
