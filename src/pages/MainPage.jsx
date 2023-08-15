@@ -25,7 +25,7 @@ import { appConfigs } from '../appConfigs'
 
 export function MainPage() {
   const [algotype, setAlgotype] = useState('')
-  const [radius, setRadius] = useState(undefined)
+  const [radius, setRadius] = useState('')
   const [driverData, setDriverData] = useState(null)
   const [orderData, setOrderData] = useState(null)
   const [alertContent, setAlertContent] = useState('')
@@ -86,10 +86,10 @@ export function MainPage() {
                 <Button
                   variant="contained"
                   color="info"
-                  disabled={algotype === '' && radius === undefined}
+                  disabled={algotype === '' && radius === ''}
                   onClick={() => {
                     setAlgotype('')
-                    setRadius(undefined)
+                    setRadius('')
                   }}
                 >
                   Clear
