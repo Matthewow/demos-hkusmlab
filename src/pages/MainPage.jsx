@@ -21,7 +21,7 @@ import { PopoverIconTitle } from '../components/PopoverIconTitle'
 import Lottie from 'lottie-react'
 import animationData from './animation_order.json'
 import { CSVUploader } from '../components/CSVUploader'
-import { appConfigs } from '../appConfigs'
+import { appConfigs, fileNames } from '../appConfigs'
 import { MatchResult } from '../components/MatchResult'
 import { post } from '../utils/http'
 
@@ -200,23 +200,32 @@ export function MainPage() {
                   <Typography sx={{ p: 1 }} variant="body1">
                     Driver Data Table should follow the format:
                     <br />
-                    driver_id, driver_region, driver_lat, driver_lng
+                    driver_id,longitude, latitude, region
                   </Typography>
                 }
               />
 
-              <CSVUploader setterFuc={setDriverData} currentData={driverData} />
+              <CSVUploader
+                setterFuc={setDriverData}
+                currentData={driverData}
+                sampleFilePath={fileNames.driverInputSample}
+              />
 
               <PopoverIconTitle
                 title="Order Data Table"
                 popoverContent={
                   <Typography sx={{ p: 1 }} variant="body1">
                     Order Data Table should follow the format:
-                    <br /> order_id, order_region, order_lat, order_lng
+                    <br /> order_id, origin_lng, origin_lat,reward_units,
+                    order_region
                   </Typography>
                 }
               />
-              <CSVUploader setterFuc={setOrderData} currentData={orderData} />
+              <CSVUploader
+                setterFuc={setOrderData}
+                currentData={orderData}
+                sampleFilePath={fileNames.orderInputSample}
+              />
 
               <Divider variant="fullWidth" sx={{ mt: 3, marginBottom: 3 }} />
               <Stack justifyContent="flex-end" direction="row">
