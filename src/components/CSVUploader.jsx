@@ -19,10 +19,14 @@ export const CSVUploader = (props) => {
   return (
     <Box>
       {!!currentData ? (
-        <Stack direction="row">
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+        >
           <Typography variant="body2">{info}</Typography>
           <Button
-            variant="contained"
+            variant="outlined"
             color="error"
             onClick={handleDelete}
             sx={{ marginLeft: 2 }}
@@ -31,7 +35,7 @@ export const CSVUploader = (props) => {
           </Button>
         </Stack>
       ) : (
-        <Stack direction="row">
+        <Stack direction="row" spacing={2}>
           <Box
             style={{
               border: '1px solid #6699ff',
@@ -61,8 +65,14 @@ export const CSVUploader = (props) => {
               />
             </label>
           </Box>
-          <Button variant="contained" component="label">
-            <a href={sampleFilePath} target="_blank" download rel="noreferrer">
+          <Button variant="outlined" component="label" size="small">
+            <a
+              href={sampleFilePath}
+              style={{ textDecoration: 'none' }}
+              target="_blank"
+              download
+              rel="noreferrer"
+            >
               Download Sample File
             </a>
           </Button>

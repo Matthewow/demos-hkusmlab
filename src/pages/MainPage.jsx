@@ -229,12 +229,7 @@ export function MainPage() {
 
               <Divider variant="fullWidth" sx={{ mt: 3, marginBottom: 3 }} />
               <Stack justifyContent="flex-end" direction="row">
-                <Button
-                  variant="contained"
-                  color="info"
-                  sx={{ marginRight: 2 }}
-                  onClick={handleSubmit}
-                >
+                <Button variant="contained" color="info" onClick={handleSubmit}>
                   submit
                 </Button>
               </Stack>
