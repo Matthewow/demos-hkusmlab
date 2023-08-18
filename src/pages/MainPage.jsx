@@ -197,8 +197,9 @@ export function MainPage() {
               <PopoverIconTitle
                 title="Driver Data Table"
                 popoverContent={
-                  <Typography sx={{ p: 1 }} variant="body1">
-                    Driver Data Table should follow the format:
+                  <Typography sx={{ p: 1 }} variant="body2">
+                    Driver Data Table should be named as driver_info.csv and
+                    containing the following columns:
                     <br />
                     driver_id,longitude, latitude, region
                   </Typography>
@@ -214,8 +215,9 @@ export function MainPage() {
               <PopoverIconTitle
                 title="Order Data Table"
                 popoverContent={
-                  <Typography sx={{ p: 1 }} variant="body1">
-                    Order Data Table should follow the format:
+                  <Typography sx={{ p: 1 }} variant="body2">
+                    Order Data Table should be named as order_info.csv and
+                    containing the following columns:
                     <br /> order_id, origin_lng, origin_lat,reward_units,
                     order_region
                   </Typography>
