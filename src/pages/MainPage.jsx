@@ -93,6 +93,8 @@ export function MainPage() {
     }
   }
 
+  const downloadResults = () => {}
+
   return (
     <React.Fragment>
       <NavBar />
@@ -256,6 +258,7 @@ export function MainPage() {
                     variant="contained"
                     color="info"
                     disabled={!resultLoaded}
+                    onClick={downloadResults}
                   >
                     Download as CSV
                   </Button>
