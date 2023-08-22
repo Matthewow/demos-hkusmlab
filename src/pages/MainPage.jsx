@@ -36,11 +36,19 @@ export function MainPage() {
   const [resultLoaded, setResultLoaded] = useState(false)
   const [resultData, setResultData] = useState(null)
 
+  const alertShow = (state, message) => {
+    setAlertContent(message)
+    setAlertType(state)
+    setAlertStatus(true)
+  }
+
   const inputChecking = () => {
-    if (!algotype || !radius) {
-      setAlertContent('Please fill in all the fields!')
-      setAlertType('error')
-      setAlertStatus(true)
+    console.log(driverData, orderData)
+    if (!algotype || !radius || !driverData || !orderData) {
+      alertShow(
+        'error',
+        'Please fill in all the fields and upload inout files!'
+      )
       return false
     } else if (
       !(
@@ -49,11 +57,22 @@ export function MainPage() {
         radius <= appConfigs.rangeMAX
       )
     ) {
-      setAlertContent(
+      alertShow(
+        'error',
         `Radius should be a number between ${appConfigs.rangeMIN} - ${appConfigs.rangeMAX}!`
       )
-      setAlertType('error')
-      setAlertStatus(true)
+      return false
+    } else if (driverData.name !== fileNames.driverInputName) {
+      alertShow(
+        'error',
+        'Please upload driver data file named with driver_info.csv'
+      )
+      return false
+    } else if (orderData.name !== fileNames.orderInputName) {
+      alertShow(
+        'error',
+        'Please upload order data file named with order_info.csv'
+      )
       return false
     }
     return true
@@ -71,13 +90,16 @@ export function MainPage() {
         .then((res) => {
           console.log('result raw data: ', res)
           setResultData(res)
-          setAlertType('success')
-          setAlertContent('Submit successfully!')
-          setAlertStatus(true)
+          alertShow('success', 'Successfully submitted!')
           setResultLoaded(true)
         })
         .catch((err) => {
           console.error(err)
+          alertShow('error', ``)
+          alertShow(
+            'error',
+            `Submission failed! Please check your input! ${err}`
+          )
         })
     }
   }

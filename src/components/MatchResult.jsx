@@ -32,7 +32,8 @@ export const MatchResult = (props) => {
           },
         }}
         pageSizeOptions={[5, 10]}
-        checkboxSelection
+        disableRowSelectionOnClick
+        // checkboxSelection
       />
     </>
   )

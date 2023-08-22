@@ -6,4 +6,6 @@ export const appConfigs = {
 export const fileNames = {
   driverInputSample: 'static/driver_info.csv',
   orderInputSample: 'static/order_info.csv',
+  driverInputName: 'driver_info.csv',
+  orderInputName: 'order_info.csv',
 }
