@@ -69,19 +69,8 @@ export function MainPage() {
       console.log('formData', formData)
       post(formData)
         .then((res) => {
-          console.log('res', res)
-          let transformedData = res.map((item, index) => {
-            return {
-              id: index + 1,
-              order_id: item.order_id,
-              order_region: item.order_region,
-              driver_id: item.driver_id,
-              driver_region: item.driver_region,
-              radius: item.radius,
-            }
-          })
-          console.log('transformedData', transformedData)
-          setResultData(transformedData)
+          console.log('result raw data: ', res)
+          setResultData(res)
           setAlertType('success')
           setAlertContent('Submit successfully!')
           setAlertStatus(true)
@@ -93,7 +82,26 @@ export function MainPage() {
     }
   }
 
-  const downloadResults = () => {}
+  const downloadResults = () => {
+    const replacer = (key, value) => (value === null ? '' : value) // specify how you want to handle null values here
+    const header = Object.keys(resultData[0])
+
+    let csv = resultData.map((row) =>
+      header
+        .map((fieldName) => JSON.stringify(row[fieldName], replacer))
+        .join(',')
+    )
+    csv.unshift(header.join(','))
+    csv = csv.join('\r\n')
+
+    const blob = new Blob([csv], { type: 'text/csv' })
+    const data = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = data
+    link.download = 'results.csv'
+    console.log('data', data)
+    link.click()
+  }
 
   return (
     <React.Fragment>

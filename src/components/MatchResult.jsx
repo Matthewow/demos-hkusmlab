@@ -10,10 +10,21 @@ export const MatchResult = (props) => {
     { field: 'radius', headerName: 'Radius', width: 130 },
   ]
 
+  const rows = props.rows.map((item, index) => {
+    return {
+      id: index + 1,
+      order_id: item.order_id,
+      order_region: item.order_region,
+      driver_id: item.driver_id,
+      driver_region: item.driver_region,
+      radius: item.radius,
+    }
+  })
+
   return (
     <>
       <DataGrid
-        rows={props.rows}
+        rows={rows}
         columns={columns}
         initialState={{
           pagination: {
