@@ -7,7 +7,7 @@ export const CSVUploader = (props) => {
   const [info, setInfo] = useState('')
   const handleCSVUpload = (data, fileInfo, originalFile) => {
     const { name, size } = fileInfo
-    setInfo(`${name} - ${size}KB`)
+    setInfo(`${name} - ${size / 1000}KB`)
     setterFuc(originalFile)
     console.log(data)
   }
