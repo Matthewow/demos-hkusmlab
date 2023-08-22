@@ -24,55 +24,33 @@ import { CSVUploader } from '../components/CSVUploader'
 import { appConfigs, fileNames } from '../appConfigs'
 import { MatchResult } from '../components/MatchResult'
 import { post } from '../utils/http'
+import { useAlert } from '../components/Alert'
 
 export function MainPage() {
   const [algotype, setAlgotype] = useState('')
   const [radius, setRadius] = useState('')
   const [driverData, setDriverData] = useState(null)
   const [orderData, setOrderData] = useState(null)
-  const [alertContent, setAlertContent] = useState('')
-  const [alertStatus, setAlertStatus] = useState(false)
-  const [alerttType, setAlertType] = useState('success')
   const [resultLoaded, setResultLoaded] = useState(false)
   const [resultData, setResultData] = useState(null)
-
-  const alertShow = (state, message) => {
-    setAlertContent(message)
-    setAlertType(state)
-    setAlertStatus(true)
-  }
+  const [Alert, showAlert] = useAlert()
 
   const inputChecking = () => {
     console.log(driverData, orderData)
-    if (!algotype || !radius || !driverData || !orderData) {
-      alertShow(
-        'error',
-        'Please fill in all the fields and upload inout files!'
-      )
-      return false
-    } else if (
-      !(
-        !isNaN(radius) &&
-        radius >= appConfigs.rangeMIN &&
-        radius <= appConfigs.rangeMAX
-      )
+    if (
+      isNaN(radius) ||
+      radius < appConfigs.rangeMIN ||
+      radius > appConfigs.rangeMAX
     ) {
-      alertShow(
-        'error',
+      showAlert(
         `Radius should be a number between ${appConfigs.rangeMIN} - ${appConfigs.rangeMAX}!`
       )
       return false
     } else if (driverData.name !== fileNames.driverInputName) {
-      alertShow(
-        'error',
-        'Please upload driver data file named with driver_info.csv'
-      )
+      showAlert('Please upload driver data file named with driver_info.csv')
       return false
     } else if (orderData.name !== fileNames.orderInputName) {
-      alertShow(
-        'error',
-        'Please upload order data file named with order_info.csv'
-      )
+      showAlert('Please upload order data file named with order_info.csv')
       return false
     }
     return true
@@ -90,16 +68,12 @@ export function MainPage() {
         .then((res) => {
           console.log('result raw data: ', res)
           setResultData(res)
-          alertShow('success', 'Successfully submitted!')
+          showAlert('Successfully submitted!', 'success')
           setResultLoaded(true)
         })
         .catch((err) => {
           console.error(err)
-          alertShow('error', ``)
-          alertShow(
-            'error',
-            `Submission failed! Please check your input! ${err}`
-          )
+          showAlert(`Submission failed! Please check your input! ${err}`)
         })
     }
   }
@@ -128,6 +102,7 @@ export function MainPage() {
   return (
     <React.Fragment>
       <NavBar />
+      <Alert />
       <Container sx={{ mt: 15, mb: 10 }} maxWidth="xl">
         <Grid container spacing={2}>
           <Grid item lg={4} md={4} xs={12} sm={5}>
@@ -263,7 +238,12 @@ export function MainPage() {
 
               <Divider variant="fullWidth" sx={{ mt: 3, marginBottom: 3 }} />
               <Stack justifyContent="flex-end" direction="row">
-                <Button variant="contained" color="info" onClick={handleSubmit}>
+                <Button
+                  variant="contained"
+                  color="info"
+                  disabled={!algotype || !radius || !driverData || !orderData}
+                  onClick={handleSubmit}
+                >
                   submit
                 </Button>
               </Stack>
@@ -326,24 +306,6 @@ export function MainPage() {
           </Grid>
         </Grid>
       </Container>
-      <Snackbar
-        open={alertStatus}
-        autoHideDuration={4000}
-        onClose={() => {
-          setAlertStatus(false)
-        }}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      >
-        <Alert
-          severity={alerttType}
-          sx={{ width: '100%' }}
-          onClose={() => {
-            setAlertStatus(false)
-          }}
-        >
-          {alertContent}
-        </Alert>
-      </Snackbar>
     </React.Fragment>
   )
 }
