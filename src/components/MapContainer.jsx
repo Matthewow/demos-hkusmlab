@@ -1,12 +1,13 @@
-import { Box } from '@mui/material'
+import { Box, Container, Stack, Typography, styled } from '@mui/material'
 import mapboxgl from 'mapbox-gl'
 import { useEffect, useRef, useState } from 'react'
 import { appConfigs } from '../appConfigs'
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 mapboxgl.accessToken = appConfigs.mapboxAccessToken
 
 function calculateAverage(data) {
-  if (!data.length) return { averageLat: 0, averageLng: 0 }
+  if (!data || !data.length) return { averageLat: 0, averageLng: 0 }
   const sums = data.reduce(
     (acc, cur) => {
       return {
@@ -38,6 +39,7 @@ export const MapContainer = (props) => {
       style: 'mapbox://styles/mapbox/dark-v11',
       center: [lng, lat],
       zoom: zoom,
+      attributionControl: false,
     })
 
     map.current.on('move', () => {
@@ -47,7 +49,14 @@ export const MapContainer = (props) => {
     })
   }, [])
 
+  const drawPairs = (data) => {}
+
   return (
-    <Box style={{ width: '100%', height: '100%' }} ref={mapContainer}></Box>
+    <Container style={{ width: '100%', height: '100%' }}>
+      <Box>
+        <Typography variant="body1">{`lat: ${lat} lng: ${lng}`}</Typography>
+      </Box>
+      <Box style={{ width: '100%', height: '80%' }} ref={mapContainer} />
+    </Container>
   )
 }
