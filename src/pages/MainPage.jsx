@@ -25,6 +25,7 @@ import { appConfigs, fileNames } from '../appConfigs'
 import { MatchResult } from '../components/MatchResult'
 import { post } from '../utils/http'
 import { useAlert } from '../components/Alert'
+import { MapContainer } from '../components/MapContainer'
 
 export function MainPage() {
   const [algotype, setAlgotype] = useState('')
@@ -34,6 +35,7 @@ export function MainPage() {
   const [resultLoaded, setResultLoaded] = useState(false)
   const [resultData, setResultData] = useState(null)
   const [Alert, showAlert] = useAlert()
+  const [isResultShownOnMap, setIsResultShownOnMap] = useState(false)
 
   const inputChecking = () => {
     console.log(driverData, orderData)
@@ -134,6 +136,7 @@ export function MainPage() {
                     setResultLoaded(false)
                     setDriverData(null)
                     setOrderData(null)
+                    setIsResultShownOnMap(false)
                   }}
                 >
                   Clear
@@ -276,15 +279,22 @@ export function MainPage() {
                     variant="contained"
                     color="info"
                     disabled={!resultLoaded}
+                    onClick={() => setIsResultShownOnMap(!isResultShownOnMap)}
                   >
-                    Show on Map
+                    {isResultShownOnMap ? 'Show as Table' : 'Show on Map'}
                   </Button>
                 </Stack>
               </Stack>
               <Divider variant="fullWidth" />
-              <Container sx={{ paddingY: 3 }}>
+              <Container sx={{ paddingY: 3, height: '100%', flex: 1 }}>
                 {resultLoaded ? (
-                  <MatchResult rows={resultData} />
+                  isResultShownOnMap ? (
+                    <Box style={{ width: '100%', height: '100%' }}>
+                      <MapContainer data={resultData} />
+                    </Box>
+                  ) : (
+                    <MatchResult rows={resultData} />
+                  )
                 ) : (
                   <Stack
                     direction="column"
