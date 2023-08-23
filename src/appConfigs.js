@@ -1,6 +1,8 @@
 export const appConfigs = {
   rangeMIN: 500,
   rangeMAX: 5000,
+  mapboxAccessToken:
+    'pk.eyJ1IjoibWF0dGp3YW5nIiwiYSI6ImNsaXB5NDN1cTAzMnAza28xaG54ZWRrMzgifQ.cUju1vqjuW7XmAuO2iEZmg',
 }
 
 export const fileNames = {
