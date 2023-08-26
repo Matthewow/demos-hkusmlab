@@ -1,124 +1,13 @@
-import { Box, Container, Stack, Typography, styled } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import mapboxgl from 'mapbox-gl'
 import { useEffect, useRef, useState } from 'react'
 import { appConfigs } from '../appConfigs'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import { importImage, passengerDriverNaming } from '../utils/mapServices'
+import { calculateAverage, drawPairs, importImage } from '../utils/mapServices'
 
 mapboxgl.accessToken = appConfigs.mapboxAccessToken
 const carImg = importImage('car')
 const passengerImg = importImage('man')
-
-function calculateAverage(data) {
-  if (!data || !data.length) return { averageLat: 0, averageLng: 0 }
-  const sums = data.reduce(
-    (acc, cur) => {
-      return {
-        latSum: acc.latSum + cur.order_lat,
-        lngSum: acc.lngSum + cur.order_lng,
-      }
-    },
-    { latSum: 0, lngSum: 0 }
-  )
-
-  return {
-    averageLat: sums.latSum / data.length,
-    averageLng: sums.lngSum / data.length,
-  }
-}
-
-const drawPairs = (map, data) => {
-  const {
-    driverSourceName,
-    driverLayerName,
-    orderSourceName,
-    orderLayerName,
-    connectionLayerName,
-    connectionSourceName,
-  } = passengerDriverNaming(data)
-  //passenger
-  map.addSource(orderSourceName, {
-    type: 'geojson',
-    data: {
-      type: 'FeatureCollection',
-      features: [
-        {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [data.order_lng, data.order_lat],
-          },
-        },
-      ],
-    },
-  })
-
-  map.addLayer({
-    id: orderLayerName,
-    type: 'symbol',
-    source: orderSourceName,
-    layout: {
-      'icon-image': 'passengerIcon',
-    },
-  })
-
-  //driver
-  map.addSource(driverSourceName, {
-    type: 'geojson',
-    data: {
-      type: 'FeatureCollection',
-      features: [
-        {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [data.driver_lng, data.driver_lat],
-          },
-        },
-      ],
-    },
-  })
-
-  map.addLayer({
-    id: driverLayerName,
-    type: 'symbol',
-    source: driverSourceName,
-    layout: {
-      'icon-image': 'carIcon',
-    },
-  })
-
-  //connection
-  const connectionLine = {
-    type: 'FeatureCollection',
-    features: [
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'LineString',
-          coordinates: [
-            [data.driver_lng, data.driver_lat],
-            [data.order_lng, data.order_lat],
-          ],
-        },
-      },
-    ],
-  }
-
-  map.addSource(connectionSourceName, {
-    type: 'geojson',
-    data: connectionLine,
-  })
-  map.addLayer({
-    id: connectionLayerName,
-    source: connectionSourceName,
-    type: 'line',
-    paint: {
-      'line-width': 2,
-      'line-color': '#007cbf',
-    },
-  })
-}
 
 export const MapContainer = (props) => {
   const { data } = props
