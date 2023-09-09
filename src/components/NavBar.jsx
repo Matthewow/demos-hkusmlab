@@ -16,9 +16,7 @@ export const NavBar = () => {
               src="static/hku-logo.png"
               sx={{ height: 40, width: 40, pr: 2 }}
             />
-            <Typography variant="h6">
-              Smart Mobility Lab at HKU | Driver-Order Matching Dashboard
-            </Typography>
+            <Typography variant="h6">Smart Mobility Lab at HKU</Typography>
           </Stack>
 
           <Button
