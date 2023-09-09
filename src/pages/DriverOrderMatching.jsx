@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import {
-  Alert,
   Box,
   Button,
   Card,
@@ -12,11 +11,10 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  Snackbar,
   Stack,
   TextField,
 } from '@mui/material'
-import { NavBar } from '../components/NavBar'
+
 import { PopoverIconTitle } from '../components/PopoverIconTitle'
 import Lottie from 'lottie-react'
 import animationData from './animation_order.json'
@@ -27,7 +25,7 @@ import { post } from '../utils/http'
 import { useAlert } from '../components/Alert'
 import { MapContainer } from '../components/MapContainer'
 
-export function MainPage() {
+export const DriverOrderMatchingPage = () => {
   const [algotype, setAlgotype] = useState('')
   const [radius, setRadius] = useState('')
   const [driverData, setDriverData] = useState(null)
@@ -103,7 +101,6 @@ export function MainPage() {
 
   return (
     <React.Fragment>
-      <NavBar />
       <Alert />
       <Container sx={{ mt: 15, mb: 10 }} maxWidth="xl">
         <Grid container spacing={2}>
