@@ -1,4 +1,14 @@
-import { AppBar, Box, Button, Stack, Toolbar, Typography } from '@mui/material'
+import {
+  AppBar,
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  Stack,
+  Toolbar,
+  Typography,
+} from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu'
 
 export const NavBar = () => {
   return (
@@ -11,6 +21,16 @@ export const NavBar = () => {
           width={'100%'}
         >
           <Stack direction="row" alignItems="center">
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              // onClick={handleDawrerOpen}
+              edge="start"
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Divider orientation="vertical" flexItem sx={{ mr: 2 }} />
             <Box
               component="img"
               src="static/hku-logo.png"

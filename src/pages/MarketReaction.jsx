@@ -95,11 +95,21 @@ export const MarketReactionPage = () => {
     currentValue,
     step,
   }) => {
+    const changingRetio = ((currentValue - baseValue) / baseValue) * 100
     return (
       <>
-        <Stack direction="row">
+        <Stack direction="row" spacing={2}>
           <Typography variant="h6" gutterBottom>
             {title}
+          </Typography>
+          <Typography
+            variant="h6"
+            gutterBottom
+            color={changingRetio < 0 ? 'error' : 'green'}
+          >
+            {changingRetio !== 0 && changingRetio > 0
+              ? `+${changingRetio.toFixed(2)}%`
+              : `${changingRetio.toFixed(2)}%`}
           </Typography>
         </Stack>
         <Slider
