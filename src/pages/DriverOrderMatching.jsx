@@ -34,6 +34,7 @@ export const DriverOrderMatchingPage = () => {
   const [resultData, setResultData] = useState(null)
   const [Alert, showAlert] = useAlert()
   const [isResultShownOnMap, setIsResultShownOnMap] = useState(false)
+  const title = 'Driver Order Matching with Broadcast and Dispatch'
 
   const inputChecking = () => {
     console.log(driverData, orderData)
@@ -103,11 +104,14 @@ export const DriverOrderMatchingPage = () => {
     <React.Fragment>
       <Alert />
       <Container sx={{ mt: 15, mb: 10 }} maxWidth="xl">
+        <Typography variant="h4" align="center" gutterBottom sx={{ mb: 4 }}>
+          {title}
+        </Typography>
         <Grid container spacing={2}>
           <Grid item lg={4} md={4} xs={12} sm={5}>
             <Card
               variant="elevation"
-              sx={{ paddingX: 3, paddingBottom: 3, boxShadow: 5 }}
+              sx={{ paddingX: 3, paddingBottom: 3, boxShadow: 3 }}
             >
               <Stack
                 direction="row"
@@ -253,7 +257,7 @@ export const DriverOrderMatchingPage = () => {
           <Grid item lg={8} md={8} xs={12} sm={7}>
             <Card
               variant="elevation"
-              sx={{ px: 3, height: '100%', boxShadow: 5 }}
+              sx={{ px: 3, height: '100%', boxShadow: 3 }}
             >
               <Stack
                 direction="row"
