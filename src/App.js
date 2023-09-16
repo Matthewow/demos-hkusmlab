@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
@@ -8,14 +8,12 @@ import { MarketReactionPage } from './pages/MarketReaction'
 import { NavBar } from './components/NavBar'
 
 function App() {
-  // useEffect(() => {
-  //   document.body.style.backgroundColor = '#e3e3e3' // Change to the color you want
-  // }, [])
-  // return <DriverOrderMatchingPage />
+  const [page, setPage] = React.useState('driver-order-matching')
   return (
     <>
-      <NavBar />
-      <MarketReactionPage />
+      <NavBar setPage={setPage} page={page} />
+      {page === 'driver-order-matching' && <DriverOrderMatchingPage />}
+      {page === 'market-reaction' && <MarketReactionPage />}
     </>
   )
 }

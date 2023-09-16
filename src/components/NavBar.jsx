@@ -10,7 +10,9 @@ import {
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 
-export const NavBar = () => {
+export const NavBar = (props) => {
+  const setPage = props.setPage
+  const page = props.page
   return (
     <AppBar sx={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
       <Toolbar sx={{ height: 80 }} variant="regular">
@@ -24,7 +26,13 @@ export const NavBar = () => {
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              // onClick={handleDawrerOpen}
+              onClick={() => {
+                setPage(
+                  page === 'driver-order-matching'
+                    ? 'market-reaction'
+                    : 'driver-order-matching'
+                )
+              }}
               edge="start"
               sx={{ mr: 2 }}
             >

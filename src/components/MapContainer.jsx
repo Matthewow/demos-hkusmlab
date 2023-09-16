@@ -1,5 +1,5 @@
 import { Box, Container, Typography } from '@mui/material'
-import mapboxgl from 'mapbox-gl'
+import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
 import { useEffect, useRef, useState } from 'react'
 import { appConfigs } from '../appConfigs'
 import 'mapbox-gl/dist/mapbox-gl.css'
