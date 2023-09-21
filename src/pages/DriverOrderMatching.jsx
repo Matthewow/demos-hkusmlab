@@ -71,6 +71,7 @@ export const DriverOrderMatchingPage = () => {
           setResultData(res)
           showAlert('Successfully submitted!', 'success')
           setResultLoaded(true)
+          setIsResultShownOnMap(false)
         })
         .catch((err) => {
           console.error(err)
@@ -294,7 +295,9 @@ export const DriverOrderMatchingPage = () => {
                       <MapContainer data={resultData} />
                     </Box>
                   ) : (
-                    <MatchResult rows={resultData} />
+                    <Box style={{ width: '100%', height: 570 }}>
+                      <MatchResult rows={resultData} />
+                    </Box>
                   )
                 ) : (
                   <Stack

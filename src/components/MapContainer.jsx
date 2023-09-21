@@ -16,7 +16,7 @@ export const MapContainer = (props) => {
   const { averageLat, averageLng } = calculateAverage(data)
   const [lng, setLng] = useState(averageLng)
   const [lat, setLat] = useState(averageLat)
-  const [zoom, setZoom] = useState(17)
+  const [zoom, setZoom] = useState(14)
 
   useEffect(() => {
     if (map.current) return // initialize map only once
