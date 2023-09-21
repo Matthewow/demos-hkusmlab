@@ -9,6 +9,7 @@ import {
 } from '@mui/material'
 import React, { useEffect } from 'react'
 import { marketReactionPost } from '../utils/http'
+import Surface3D from '../components/Surface3D'
 
 export const MarketReactionPage = () => {
   const [inputValues, setInputValues] = React.useState({
@@ -34,34 +35,38 @@ export const MarketReactionPage = () => {
     {
       key: 'total_reward',
       title: 'Total Reward',
-      minValue: 20000000,
-      maxValue: 45000000,
+      minValue: 15000000,
+      maxValue: 42000000,
       currentValue: 38333647,
       step: 1,
+      index: 2,
     },
     {
       key: 'monthly_reward',
       title: 'Monthly Reward per Driver',
-      minValue: 20000,
-      maxValue: 40000,
+      minValue: 15000,
+      maxValue: 35000,
       currentValue: 31945,
       step: 1,
+      index: 3,
     },
     {
       key: 'matching_ratio',
       title: 'Matching Rate',
-      minValue: 0,
-      maxValue: 1,
+      minValue: 0.2,
+      maxValue: 0.7,
       currentValue: 0.5229,
       step: 0.0001,
+      index: 4,
     },
     {
       key: 'occupancy_ratio',
       title: 'Occupancy Rate',
-      minValue: 0,
-      maxValue: 1,
+      minValue: 0.2,
+      maxValue: 0.5,
       currentValue: 0.4297,
       step: 0.0001,
+      index: 5,
     },
   ]
 
@@ -196,6 +201,11 @@ export const MarketReactionPage = () => {
           </Stack>
         </Grid>
       </Grid>
+
+      <Surface3D field={'total_reward'} zMin={15000000} zMax={42000000} />
+      <Surface3D field={'monthly_reward'} zMin={15000} zMax={35000} />
+      <Surface3D field={''} zMin={0.2} zMax={0.7} />
+      <Surface3D field={5} zMin={0.2} zMax={0.5} />
     </Container>
   )
 }
