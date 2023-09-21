@@ -35,8 +35,10 @@ export const MarketReactionPage = () => {
     {
       key: 'total_reward',
       title: 'Total Reward',
-      minValue: 15000000,
-      maxValue: 42000000,
+      minValue: 20000000,
+      maxValue: 45000000,
+      zAxisMin: 15000000,
+      zAxisMax: 42000000,
       currentValue: 38333647,
       step: 1,
       index: 2,
@@ -44,8 +46,10 @@ export const MarketReactionPage = () => {
     {
       key: 'monthly_reward',
       title: 'Monthly Reward per Driver',
-      minValue: 15000,
-      maxValue: 35000,
+      minValue: 20000,
+      maxValue: 40000,
+      zAxisMin: 15000,
+      zAxisMax: 35000,
       currentValue: 31945,
       step: 1,
       index: 3,
@@ -53,8 +57,10 @@ export const MarketReactionPage = () => {
     {
       key: 'matching_ratio',
       title: 'Matching Rate',
-      minValue: 0.2,
-      maxValue: 0.7,
+      minValue: 0,
+      maxValue: 1,
+      zAxisMin: 0.2,
+      zAxisMax: 0.7,
       currentValue: 0.5229,
       step: 0.0001,
       index: 4,
@@ -62,8 +68,10 @@ export const MarketReactionPage = () => {
     {
       key: 'occupancy_ratio',
       title: 'Occupancy Rate',
-      minValue: 0.2,
-      maxValue: 0.5,
+      minValue: 0,
+      maxValue: 1,
+      zAxisMin: 0.2,
+      zAxisMax: 0.5,
       currentValue: 0.4297,
       step: 0.0001,
       index: 5,
@@ -202,10 +210,38 @@ export const MarketReactionPage = () => {
         </Grid>
       </Grid>
 
-      <Surface3D field={'total_reward'} zMin={15000000} zMax={42000000} />
-      <Surface3D field={'monthly_reward'} zMin={15000} zMax={35000} />
-      <Surface3D field={''} zMin={0.2} zMax={0.7} />
-      <Surface3D field={5} zMin={0.2} zMax={0.5} />
+      <Divider sx={{ mt: 10 }}></Divider>
+
+      <Typography variant="h4" sx={{ mt: 5 }}>
+        3D Plot
+      </Typography>
+      <Grid container>
+        <Grid item xs>
+          <Stack sx={{ marginX: 5, marginTop: 5 }} spacing={10}>
+            <Typography variant="h6" gutterBottom>
+              {outputSliderConfigs[0].title}
+            </Typography>
+            <Surface3D props={outputSliderConfigs[0]} />
+            <Typography variant="h6" gutterBottom>
+              {outputSliderConfigs[2].title}
+            </Typography>
+            <Surface3D props={outputSliderConfigs[2]} />
+          </Stack>
+        </Grid>
+        <Divider orientation="vertical" flexItem></Divider>
+        <Grid item xs>
+          <Stack sx={{ marginX: 5, marginTop: 5 }} spacing={10}>
+            <Typography variant="h6" gutterBottom>
+              {outputSliderConfigs[1].title}
+            </Typography>
+            <Surface3D props={outputSliderConfigs[1]} />
+            <Typography variant="h6" gutterBottom>
+              {outputSliderConfigs[3].title}
+            </Typography>
+            <Surface3D props={outputSliderConfigs[3]} />
+          </Stack>
+        </Grid>
+      </Grid>
     </Container>
   )
 }

@@ -8,7 +8,7 @@ import { MarketReactionPage } from './pages/MarketReaction'
 import { NavBar } from './components/NavBar'
 
 function App() {
-  const [page, setPage] = React.useState('driver-order-matching')
+  const [page, setPage] = React.useState('market-reaction')
   return (
     <>
       <NavBar setPage={setPage} page={page} />
