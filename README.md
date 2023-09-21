@@ -1,8 +1,6 @@
-## Driver-Order Matching
+## HKU Smart Mobility Lab Demos
 
-Welcome to the Driver-Order Matching Web App. The project is supervised by Dr. Ke Jingtao of the HKU Smart Mobility Lab.
-
-This web application offers a platform for users to upload driver and passenger order information through CSV files. The primary goal is to efficiently match drivers with passengers based on the uploaded data.
+Welcome to the HKU Smart Mobility Lab Demos site. The project is supervised by Dr. Ke Jingtao from Dept. Civil Engineer, The University of Hong Kong.
 
 ### Get started
 
@@ -14,7 +12,7 @@ After clone the repo, run the commands below,
 
 By default, the port is `3002`, you could modify this in `.env` file under the root dir.
 
-### Features
+### Driver-Order Matching
 
 - Data Upload: Users can upload two types of CSV files – driver info and passenger order info.
 
@@ -31,3 +29,15 @@ By default, the port is `3002`, you could modify this in `.env` file under the r
 - Data Visualization: The application provides a map-based visualization to view the matched driver-order pairs. This can give users a spatial understanding of the matches.
 
 This project aims to streamline and improve the efficiency of e-hailing services by providing an easy-to-use platform for data upload, matching, and visualization. We hope you find it useful and we welcome your feedback and suggestions.
+
+### Market's Reaction w.r.t Price Fluctuation and Fleet Size
+
+
+### Features Progress
+
+- [x] Driver-Order Matching
+- [x] Market's Reaction w.r.t Price Fluctuation and Fleet Size
+- [ ] Integrate Picking up Animation
+- [ ] Refactor App in TS for better compatibility
+- [ ] Demo Home Page
+
