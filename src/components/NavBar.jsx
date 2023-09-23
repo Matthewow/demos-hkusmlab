@@ -16,9 +16,13 @@ import {
 import MenuIcon from '@mui/icons-material/Menu'
 import { useState } from 'react'
 import { RoutesConfig } from '../routes-config'
+import { useNavigate } from 'react-router-dom'
+import React from 'react'
 
 export const NavBar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const navigate = useNavigate()
+
   const list = () => (
     <Box
       sx={{ width: 500 }}
@@ -33,18 +37,23 @@ export const NavBar = () => {
             src="static/hku-logo.png"
             sx={{ height: 40, width: 40, paddingX: 2 }}
           />
-          <Typography variant="h6">Quick Link</Typography>
+          <Typography variant="h6">Quick Links</Typography>
         </Stack>
+        <Divider />
 
         {RoutesConfig.map((route) => (
-          <>
-            <Divider />
-            <ListItem key={route.name} disablePadding>
-              <ListItemButton>
+          <React.Fragment key={route.name}>
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={() => {
+                  navigate(route.path)
+                }}
+              >
                 <ListItemText primary={route.name} />
               </ListItemButton>
             </ListItem>
-          </>
+            <Divider />
+          </React.Fragment>
         ))}
       </List>
     </Box>
