@@ -34,7 +34,7 @@ export const DriverOrderMatchingPage = () => {
   const [resultData, setResultData] = useState(null)
   const [Alert, showAlert] = useAlert()
   const [isResultShownOnMap, setIsResultShownOnMap] = useState(false)
-  const title = 'Driver Order Matching with Broadcast and Dispatch'
+  const title = 'Driver Order Matching with Broadcasting and Dispatching'
 
   const inputChecking = () => {
     console.log(driverData, orderData)

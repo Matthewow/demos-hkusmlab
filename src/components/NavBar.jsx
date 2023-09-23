@@ -61,7 +61,7 @@ export const NavBar = () => {
   return (
     <>
       <AppBar sx={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
-        <Toolbar sx={{ height: 80 }} variant="regular">
+        <Toolbar sx={{ height: 60 }} variant="regular">
           <Stack
             direction="row"
             justifyContent="space-between"
@@ -86,7 +86,9 @@ export const NavBar = () => {
                 src="static/hku-logo.png"
                 sx={{ height: 40, width: 40, pr: 2 }}
               />
-              <Typography variant="h6">Smart Mobility Lab at HKU</Typography>
+              <Typography variant="subtitle1">
+                Smart Mobility Lab at HKU
+              </Typography>
             </Stack>
 
             <Button

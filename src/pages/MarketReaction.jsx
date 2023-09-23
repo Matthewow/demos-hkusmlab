@@ -177,20 +177,20 @@ export const MarketReactionPage = () => {
           <br />
           <strong>Four investigated benchmarks:</strong>
           <br />
-          <strong style={{ color: '#9c27b0' }}>Total market revenue: </strong>
+          <strong style={{ color: '#9c27b0' }}>Total Market Revenue: </strong>
           summation of all completed orders’ revenue of all drivers
           <br />
-          <strong style={{ color: '#9c27b0' }}>Monthly driver rewards: </strong>
+          <strong style={{ color: '#9c27b0' }}>Monthly Driver Rewards: </strong>
           calculated driver monthly reward (assuming each taxi is operated by
           two drivers in two shifts)
           <br />
           <strong style={{ color: '#9c27b0' }}>
-            Passenger order matching ratio:{' '}
+            Passenger Order Matching Ratio:{' '}
           </strong>
           the percentage of served passengers in all ride requests
           <br />
           <strong style={{ color: '#9c27b0' }}>
-            Driver occupancy rate:
+            Driver Occupancy Rate:
           </strong>{' '}
           the percentage of drivers’ occupied time periods (picking up or
           delivering passengers)

@@ -9,7 +9,7 @@ export const RoutesConfig = [
     component: <HomePage />,
   },
   {
-    name: 'Driver Order Matching with Broadcast and Dispatchg',
+    name: 'Driver Order Matching with Broadcasting and Dispatching',
     path: '/driver-order-matching',
     component: <DriverOrderMatchingPage />,
   },
