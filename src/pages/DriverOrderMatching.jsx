@@ -17,7 +17,7 @@ import {
 
 import { PopoverIconTitle } from '../components/PopoverIconTitle'
 import Lottie from 'lottie-react'
-import animationData from './animation_order.json'
+import animationData from '../data/animation_order.json'
 import { CSVUploader } from '../components/CSVUploader'
 import { appConfigs, fileNames } from '../appConfigs'
 import { MatchResult } from '../components/MatchResult'
@@ -105,19 +105,20 @@ export const DriverOrderMatchingPage = () => {
     <React.Fragment>
       <Alert />
       <Container sx={{ mt: 15, mb: 10 }} maxWidth="xl">
-        <Typography variant="h4" align="center" gutterBottom sx={{ mb: 4 }}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mb: 4, fontWeight: 500 }}
+        >
           {title}
         </Typography>
+        <Divider sx={{ marginY: 5 }}></Divider>
 
         <Typography variant="h6" sx={{ mb: 2 }}>
           About
         </Typography>
-        <Typography
-          variant="subtitle1"
-          align="left"
-          sx={{ mb: 2 }}
-          gutterBottom
-        >
+        <Typography variant="subtitle1" align="left" gutterBottom>
           The taxi market operates under two matching methods -{' '}
           <strong style={{ color: '#9c27b0' }}>dispatch</strong> and{' '}
           <strong style={{ color: '#9c27b0' }}>broadcast</strong> .
@@ -127,6 +128,8 @@ export const DriverOrderMatchingPage = () => {
           subsequently obtain the matching results. You have the option to
           download these results or display them on a map.
         </Typography>
+
+        <Divider sx={{ marginY: 5 }}></Divider>
 
         <Grid container spacing={2}>
           <Grid item lg={4} md={4} xs={12} sm={5}>
