@@ -108,6 +108,26 @@ export const DriverOrderMatchingPage = () => {
         <Typography variant="h4" align="center" gutterBottom sx={{ mb: 4 }}>
           {title}
         </Typography>
+
+        <Typography variant="h6" sx={{ mb: 2 }}>
+          About
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          align="left"
+          sx={{ mb: 2 }}
+          gutterBottom
+        >
+          The taxi market operates under two matching methods -{' '}
+          <strong style={{ color: '#9c27b0' }}>dispatch</strong> and{' '}
+          <strong style={{ color: '#9c27b0' }}>broadcast</strong> .
+          <br />
+          In our provided app, you can select the matching mode, then upload the
+          travel request information from drivers and passengers, and
+          subsequently obtain the matching results. You have the option to
+          download these results or display them on a map.
+        </Typography>
+
         <Grid container spacing={2}>
           <Grid item lg={4} md={4} xs={12} sm={5}>
             <Card

@@ -34,7 +34,7 @@ export const MarketReactionPage = () => {
   const outputSliderConfigs = [
     {
       key: 'total_reward',
-      title: 'Total Reward',
+      title: 'Total Market Revenue',
       minValue: 20000000,
       maxValue: 45000000,
       zAxisMin: 15000000,
@@ -45,7 +45,7 @@ export const MarketReactionPage = () => {
     },
     {
       key: 'monthly_reward',
-      title: 'Monthly Reward per Driver',
+      title: 'Monthly Driver Rewards',
       minValue: 20000,
       maxValue: 40000,
       zAxisMin: 15000,
@@ -56,7 +56,7 @@ export const MarketReactionPage = () => {
     },
     {
       key: 'matching_ratio',
-      title: 'Matching Rate',
+      title: 'Passenger Order Matching Ratio',
       minValue: 0,
       maxValue: 1,
       zAxisMin: 0.2,
@@ -67,7 +67,7 @@ export const MarketReactionPage = () => {
     },
     {
       key: 'occupancy_ratio',
-      title: 'Occupancy Rate',
+      title: 'Driver Occupancy Rate',
       minValue: 0,
       maxValue: 1,
       zAxisMin: 0.2,
@@ -144,11 +144,59 @@ export const MarketReactionPage = () => {
 
   return (
     <Container sx={{ mt: 15, mb: 10 }} maxWidth="xl">
-      <Box sx={{ marginY: 10 }}>
-        <Typography variant="h4" align="center" gutterBottom>
+      <Box sx={{ marginY: 5 }}>
+        <Typography
+          variant="h4"
+          align="center"
+          sx={{ fontWeight: 500 }}
+          gutterBottom
+        >
           Market's Reaction w.r.t Price Fluctuation and Fleet Size
         </Typography>
+        <Divider sx={{ marginY: 5 }}></Divider>
+        <Typography variant="h6" sx={{ mb: 2 }}>
+          About
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          align="left"
+          gutterBottom
+          // sx={{ maxWidth: 800 }}
+        >
+          In this section, we perform a sensitivity analysis of how taxi market
+          statistics are influenced by fluctuations in taxi driver{' '}
+          <strong style={{ color: '#9c27b0' }}>fleet size</strong> and{' '}
+          <strong style={{ color: '#9c27b0' }}>pricing</strong>. The fleet size
+          and pricing mechanism are critical factors influencing the taxi
+          market. This web app can demonstrate the varying outcomes on platform
+          revenues, driver's monthly income, order matching rate, and driver
+          utilization rate following alterations in fleet size and pricing.
+          Consequently, this aids the government or operators in managing fleet
+          control and adjusting pricing strategies.
+          <br />
+          <br />
+          <strong>Four investigated benchmarks:</strong>
+          <br />
+          <strong style={{ color: '#9c27b0' }}>Total market revenue: </strong>
+          summation of all completed orders’ revenue of all drivers
+          <br />
+          <strong style={{ color: '#9c27b0' }}>Monthly driver rewards: </strong>
+          calculated driver monthly reward (assuming each taxi is operated by
+          two drivers in two shifts)
+          <br />
+          <strong style={{ color: '#9c27b0' }}>
+            Passenger order matching ratio:{' '}
+          </strong>
+          the percentage of served passengers in all ride requests
+          <br />
+          <strong style={{ color: '#9c27b0' }}>
+            Driver occupancy rate:
+          </strong>{' '}
+          the percentage of drivers’ occupied time periods (picking up or
+          delivering passengers)
+        </Typography>
       </Box>
+      <Divider sx={{ marginBottom: 5 }}></Divider>
       <Grid container>
         <Grid item xs>
           <Stack sx={{ marginX: 5 }} spacing={5}>
@@ -212,7 +260,7 @@ export const MarketReactionPage = () => {
 
       <Divider sx={{ mt: 10 }}></Divider>
 
-      <Typography variant="h4" sx={{ mt: 5 }}>
+      <Typography variant="h4" sx={{ mt: 5, fontWeight: 500 }}>
         3D Plot
       </Typography>
       <Grid container>
