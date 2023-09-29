@@ -334,7 +334,7 @@ export const DriverOrderMatchingPage = () => {
                       <Lottie loop={false} animationData={animationData} />
                     </Box>
                     <Typography variant="subtitle1" sx={{ color: 'grey' }}>
-                      waitting for submission
+                      waiting for submission
                     </Typography>
                   </Stack>
                 )}
