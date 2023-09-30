@@ -10,6 +10,50 @@ import {
 import React, { useEffect } from 'react'
 import { marketReactionPost } from '../utils/http'
 import Surface3D from '../components/Surface3D'
+import { DemoContainer } from '../containers/DemoContainer'
+
+const title = `Market's Reaction w.r.t Price Fluctuation and Fleet Size`
+
+const about = () => {
+  return (
+    <Typography
+      variant="subtitle1"
+      align="left"
+      gutterBottom
+      // sx={{ maxWidth: 800 }}
+    >
+      In this section, we perform a sensitivity analysis of how taxi market
+      statistics are influenced by fluctuations in taxi driver{' '}
+      <strong style={{ color: '#9c27b0' }}>fleet size</strong> and{' '}
+      <strong style={{ color: '#9c27b0' }}>pricing</strong>. The fleet size and
+      pricing mechanism are critical factors influencing the taxi market. This
+      web app can demonstrate the varying outcomes on platform revenues,
+      driver's monthly income, order matching rate, and driver utilization rate
+      following alterations in fleet size and pricing. Consequently, this aids
+      the government or operators in managing fleet control and adjusting
+      pricing strategies.
+      <br />
+      <br />
+      <strong>Four investigated benchmarks:</strong>
+      <br />
+      <strong style={{ color: '#9c27b0' }}>Total Market Revenue: </strong>
+      summation of all completed orders’ revenue of all drivers
+      <br />
+      <strong style={{ color: '#9c27b0' }}>Monthly Driver Rewards: </strong>
+      calculated driver monthly reward (assuming each taxi is operated by two
+      drivers in two shifts)
+      <br />
+      <strong style={{ color: '#9c27b0' }}>
+        Passenger Order Matching Ratio:{' '}
+      </strong>
+      the percentage of served passengers in all ride requests
+      <br />
+      <strong style={{ color: '#9c27b0' }}>Driver Occupancy Rate:</strong> the
+      percentage of drivers’ occupied time periods (picking up or delivering
+      passengers)
+    </Typography>
+  )
+}
 
 export const MarketReactionPage = () => {
   const [inputValues, setInputValues] = React.useState({
@@ -25,10 +69,10 @@ export const MarketReactionPage = () => {
   }
 
   const baseValues = {
-    matching_ratio: 0.522933333335,
-    monthly_reward: 31944.705999999976,
-    occupancy_ratio: 0.429717824074074,
-    total_reward: 38333647.199999966,
+    matching_ratio: 0.5229,
+    monthly_reward: 31945,
+    occupancy_ratio: 0.4297,
+    total_reward: 38333647,
   }
 
   const outputSliderConfigs = [
@@ -95,7 +139,6 @@ export const MarketReactionPage = () => {
       inputValues.fleetSize
     ).then((res) => {
       console.log(res)
-
       setOutputValues(formatResponse(res))
     })
   }, [inputValues])
@@ -143,60 +186,7 @@ export const MarketReactionPage = () => {
   }
 
   return (
-    <Container sx={{ mt: 15, mb: 10 }} maxWidth="xl">
-      <Box sx={{ marginY: 5 }}>
-        <Typography
-          variant="h4"
-          align="center"
-          sx={{ fontWeight: 500 }}
-          gutterBottom
-        >
-          Market's Reaction w.r.t Price Fluctuation and Fleet Size
-        </Typography>
-        <Divider sx={{ marginY: 5 }}></Divider>
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          About
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="left"
-          gutterBottom
-          // sx={{ maxWidth: 800 }}
-        >
-          In this section, we perform a sensitivity analysis of how taxi market
-          statistics are influenced by fluctuations in taxi driver{' '}
-          <strong style={{ color: '#9c27b0' }}>fleet size</strong> and{' '}
-          <strong style={{ color: '#9c27b0' }}>pricing</strong>. The fleet size
-          and pricing mechanism are critical factors influencing the taxi
-          market. This web app can demonstrate the varying outcomes on platform
-          revenues, driver's monthly income, order matching rate, and driver
-          utilization rate following alterations in fleet size and pricing.
-          Consequently, this aids the government or operators in managing fleet
-          control and adjusting pricing strategies.
-          <br />
-          <br />
-          <strong>Four investigated benchmarks:</strong>
-          <br />
-          <strong style={{ color: '#9c27b0' }}>Total Market Revenue: </strong>
-          summation of all completed orders’ revenue of all drivers
-          <br />
-          <strong style={{ color: '#9c27b0' }}>Monthly Driver Rewards: </strong>
-          calculated driver monthly reward (assuming each taxi is operated by
-          two drivers in two shifts)
-          <br />
-          <strong style={{ color: '#9c27b0' }}>
-            Passenger Order Matching Ratio:{' '}
-          </strong>
-          the percentage of served passengers in all ride requests
-          <br />
-          <strong style={{ color: '#9c27b0' }}>
-            Driver Occupancy Rate:
-          </strong>{' '}
-          the percentage of drivers’ occupied time periods (picking up or
-          delivering passengers)
-        </Typography>
-      </Box>
-      <Divider sx={{ marginBottom: 5 }}></Divider>
+    <DemoContainer title={title} about={about()}>
       <Grid container>
         <Grid item xs>
           <Stack sx={{ marginX: 5 }} spacing={5}>
@@ -290,6 +280,6 @@ export const MarketReactionPage = () => {
           </Stack>
         </Grid>
       </Grid>
-    </Container>
+    </DemoContainer>
   )
 }

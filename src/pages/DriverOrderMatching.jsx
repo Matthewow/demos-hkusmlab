@@ -24,6 +24,24 @@ import { MatchResult } from '../components/MatchResult'
 import { post } from '../utils/http'
 import { useAlert } from '../components/Alert'
 import { MapContainer } from '../components/MapContainer'
+import { DemoContainer } from '../containers/DemoContainer'
+
+const title = 'Driver Order Matching with Broadcasting and Dispatching'
+
+const about = () => {
+  return (
+    <Typography variant="subtitle1" align="left" gutterBottom>
+      The taxi market operates under two matching methods -{' '}
+      <strong style={{ color: '#9c27b0' }}>dispatch</strong> and{' '}
+      <strong style={{ color: '#9c27b0' }}>broadcast</strong> .
+      <br />
+      In our provided app, you can select the matching mode, then upload the
+      travel request information from drivers and passengers, and subsequently
+      obtain the matching results. You have the option to download these results
+      or display them on a map.
+    </Typography>
+  )
+}
 
 export const DriverOrderMatchingPage = () => {
   const [algotype, setAlgotype] = useState('')
@@ -34,7 +52,6 @@ export const DriverOrderMatchingPage = () => {
   const [resultData, setResultData] = useState(null)
   const [Alert, showAlert] = useAlert()
   const [isResultShownOnMap, setIsResultShownOnMap] = useState(false)
-  const title = 'Driver Order Matching with Broadcasting and Dispatching'
 
   const inputChecking = () => {
     console.log(driverData, orderData)
@@ -104,33 +121,7 @@ export const DriverOrderMatchingPage = () => {
   return (
     <React.Fragment>
       <Alert />
-      <Container sx={{ mt: 15, mb: 10 }} maxWidth="xl">
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mb: 4, fontWeight: 500 }}
-        >
-          {title}
-        </Typography>
-        <Divider sx={{ marginY: 5 }}></Divider>
-
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          About
-        </Typography>
-        <Typography variant="subtitle1" align="left" gutterBottom>
-          The taxi market operates under two matching methods -{' '}
-          <strong style={{ color: '#9c27b0' }}>dispatch</strong> and{' '}
-          <strong style={{ color: '#9c27b0' }}>broadcast</strong> .
-          <br />
-          In our provided app, you can select the matching mode, then upload the
-          travel request information from drivers and passengers, and
-          subsequently obtain the matching results. You have the option to
-          download these results or display them on a map.
-        </Typography>
-
-        <Divider sx={{ marginY: 5 }}></Divider>
-
+      <DemoContainer title={title} about={about()}>
         <Grid container spacing={2}>
           <Grid item lg={4} md={4} xs={12} sm={5}>
             <Card
@@ -342,7 +333,7 @@ export const DriverOrderMatchingPage = () => {
             </Card>
           </Grid>
         </Grid>
-      </Container>
+      </DemoContainer>
     </React.Fragment>
   )
 }
