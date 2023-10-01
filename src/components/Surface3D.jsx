@@ -8,7 +8,20 @@ export default function Surface3D({ props }) {
 
   const getOption = () => {
     return {
-      tooltip: {},
+      tooltip: {
+        formatter: function (params) {
+          return (
+            'Price Fluctuation: ' +
+            params.value[0] +
+            '<br>' +
+            'Fleet Size: ' +
+            params.value[1] +
+            '<br>' +
+            `${props.title}: ` +
+            params.value[2]
+          )
+        },
+      },
       backgroundColor: '#fff',
       visualMap: {
         show: false,
@@ -32,16 +45,19 @@ export default function Surface3D({ props }) {
         },
       },
       xAxis3D: {
+        name: 'Price Fluctuation',
         type: 'value',
         min: 0.7,
         max: 1.3,
       },
       yAxis3D: {
+        name: 'Fleet Size',
         type: 'value',
         min: 15600,
         max: 20400,
       },
       zAxis3D: {
+        name: props.title,
         type: 'value',
         min: props.zAxisMin,
         max: props.zAxisMax,
