@@ -4,6 +4,9 @@ import backgroundImage from '../images/home-background-image.jpg'
 
 export const HomePage = () => {
   const backgroundTransparency = 0.6
+  console.log(
+    `@CopyRight Disclaimer: \n Photo by Joshua Rawson-Harris("https://unsplash.com/@joshrh19?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText") on Unsplash`
+  )
 
   const rootStyles = {
     position: 'relative',
@@ -29,14 +32,13 @@ export const HomePage = () => {
     alignItems: 'center',
     height: '100vh',
     color: 'white',
-    fontWeight: 800,
   }
 
   return (
     <>
       <Box sx={rootStyles}>
         <Box sx={contentStyles}>
-          <Typography variant="h1" fontWeight={800}>
+          <Typography variant="h1" sx={{ fontWeight: 800 }}>
             HKU Smart Mobility Lab
           </Typography>
           <Typography variant="h1" fontWeight={800}>
