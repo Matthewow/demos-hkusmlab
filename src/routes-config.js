@@ -20,7 +20,7 @@ export const RoutesConfig = [
     component: <MarketReactionPage />,
   },
   {
-    name: '[Video] A Large-scale simulation platform åfor ride-hailing services in Manhattan, NYC',
+    name: '[Video] A Large-scale simulation platform for ride-hailing services in Manhattan, NYC',
     path: '/simulation-platform',
     component: <SimulatorPlatform />,
   },
