@@ -1,6 +1,7 @@
 import { DriverOrderMatchingPage } from './pages/DriverOrderMatching'
 import { HomePage } from './pages/Home'
 import { MarketReactionPage } from './pages/MarketReaction'
+import { SimulatorPlatform } from './pages/SimulatorPlatform'
 
 export const RoutesConfig = [
   {
@@ -17,5 +18,10 @@ export const RoutesConfig = [
     name: "Market's Reaction w.r.t Price Fluctuation and Fleet Size",
     path: '/market-reaction',
     component: <MarketReactionPage />,
+  },
+  {
+    name: '[Video] A Large-scale simulation platform åfor ride-hailing services in Manhattan, NYC',
+    path: '/simulation-platform',
+    component: <SimulatorPlatform />,
   },
 ]

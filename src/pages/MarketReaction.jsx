@@ -1,12 +1,4 @@
-import {
-  Box,
-  Container,
-  Divider,
-  Grid,
-  Slider,
-  Stack,
-  Typography,
-} from '@mui/material'
+import { Divider, Grid, Slider, Stack, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import { marketReactionPost } from '../utils/http'
 import Surface3D from '../components/Surface3D'
