@@ -14,6 +14,7 @@ import {
   ListItemText,
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
+import GitHubIcon from '@mui/icons-material/GitHub'
 import { useState } from 'react'
 import { RoutesConfig } from '../routes-config'
 import { useNavigate } from 'react-router-dom'
@@ -80,7 +81,11 @@ export const NavBar = () => {
               >
                 <MenuIcon />
               </IconButton>
-              <Divider orientation="vertical" flexItem sx={{ mr: 2 }} />
+              <Divider
+                orientation="vertical"
+                flexItem
+                sx={{ mr: 2, borderColor: '#aaa' }}
+              />
               <Box
                 component="img"
                 src="static/hku-logo.png"
@@ -90,15 +95,31 @@ export const NavBar = () => {
                 Smart Mobility Lab at HKU
               </Typography>
             </Stack>
-
-            <Button
-              sx={{ color: 'white' }}
-              onClick={() => {
-                window.open('https://sites.google.com/view/kejintao')
-              }}
-            >
-              <Typography>ABOUT US</Typography>
-            </Button>
+            <Stack direction="row" alignItems="center">
+              <Button
+                sx={{ color: 'white' }}
+                onClick={() => {
+                  window.open('https://sites.google.com/view/kejintao')
+                }}
+              >
+                <Typography>ABOUT US</Typography>
+              </Button>
+              <Divider
+                orientation="vertical"
+                flexItem
+                sx={{ mx: 2, borderColor: '#aaa' }}
+              />
+              <IconButton
+                color="inherit"
+                aria-label="github"
+                onClick={() =>
+                  window.open('https://github.com/Matthewow/demos-hkusmlab')
+                }
+                edge="start"
+              >
+                <GitHubIcon />
+              </IconButton>
+            </Stack>
           </Stack>
         </Toolbar>
       </AppBar>
