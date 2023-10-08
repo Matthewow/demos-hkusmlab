@@ -2,6 +2,8 @@
 
 Welcome to the HKU Smart Mobility Lab Demos site. The project is supervised by Dr. Ke Jingtao from Dept. Civil Engineer, The University of Hong Kong.
 
+The project showcases a curated selection of demos derived from our research.
+
 ### Get started
 
 After clone the repo, run the commands below,
@@ -32,12 +34,15 @@ This project aims to streamline and improve the efficiency of e-hailing services
 
 ### Market's Reaction w.r.t Price Fluctuation and Fleet Size
 
+In this section, we perform a sensitivity analysis of how taxi market statistics are influenced by fluctuations in taxi driver fleet size and pricing. The fleet size and pricing mechanism are critical factors influencing the taxi market. This web app can demonstrate the varying outcomes on platform revenues, driver's monthly income, order matching rate, and driver utilization rate following alterations in fleet size and pricing. Consequently, this aids the government or operators in managing fleet control and adjusting pricing strategies.
+  
+
 
 ### Features Progress
 
 - [x] Driver-Order Matching
 - [x] Market's Reaction w.r.t Price Fluctuation and Fleet Size
-- [ ] Integrate Picking up Animation
-- [ ] Refactor App in TS for better compatibility
-- [ ] Demo Home Page
-
+- [x] Demo Home Page
+- [ ] Integrate Picking up Animation Demo Page
+- [ ] Refactor App in TS/JSDoc for better compatibility
+- [ ] Traffic Flow Visualization Demo 
