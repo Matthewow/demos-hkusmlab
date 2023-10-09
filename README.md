@@ -43,6 +43,6 @@ In this section, we perform a sensitivity analysis of how taxi market statistics
 - [x] Driver-Order Matching
 - [x] Market's Reaction w.r.t Price Fluctuation and Fleet Size
 - [x] Demo Home Page
-- [ ] Integrate Picking up Animation Demo Page
-- [ ] Refactor App in TS/JSDoc for better compatibility
 - [ ] Traffic Flow Visualization Demo 
+- [ ] Integrate Picking up Animation Demo
+- [ ] Refactor App with TS/JSDoc for better compatibility
