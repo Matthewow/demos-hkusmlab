@@ -3,8 +3,31 @@ import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loade
 import { useEffect, useRef, useState } from 'react'
 import { appConfigs } from '../appConfigs'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import { LineChart } from '@mui/x-charts/LineChart'
 
 mapboxgl.accessToken = appConfigs.mapboxAccessToken
+
+function BasicLineChart({ data }) {
+  return (
+    <LineChart
+      xAxis={[
+        {
+          data: Array.from({ length: 24 }, (v, k) => k),
+          valueFormatter: (v) => `${v}:00-${v + 1}:00`,
+        },
+      ]}
+      colors={['#1976d2']}
+      series={[
+        {
+          data: data,
+          area: true,
+          label: 'Hourly Traffic Flow',
+        },
+      ]}
+      height={300}
+    />
+  )
+}
 
 export const MapContainer = (props) => {
   const mapContainer = useRef(null)
@@ -12,6 +35,9 @@ export const MapContainer = (props) => {
   const [lng, setLng] = useState(114.1694)
   const [lat, setLat] = useState(22.3193)
   const [zoom, setZoom] = useState(14)
+  const [mockData, setMockData] = useState(
+    Array.from({ length: 24 }, () => Math.floor(Math.random() * 31))
+  )
 
   useEffect(() => {
     if (map.current) return // initialize map only once
@@ -30,43 +56,46 @@ export const MapContainer = (props) => {
       setZoom(map.current.getZoom().toFixed(2))
     })
 
-    map.current.on('style.load', function () {
-      map.current.on('click', function (e) {
-        var features = map.current.queryRenderedFeatures(e.point)
-        if (!features.length) {
-          return
-        }
-        if (typeof map.current.getLayer('selectedRoad') !== 'undefined') {
-          map.current.removeLayer('selectedRoad')
-          map.current.removeSource('selectedRoad')
-        }
-        var feature = features[0]
-        map.current.addSource('selectedRoad', {
-          type: 'geojson',
-          data: feature.toJSON(),
-        })
-        map.current.addLayer({
-          id: 'selectedRoad',
-          type: 'line',
-          source: 'selectedRoad',
-          layout: {
-            'line-join': 'round',
-            'line-cap': 'round',
-          },
-          paint: {
-            'line-color': 'yellow',
-            'line-width': 8,
-          },
-        })
+    map.current.on('click', 'road-layer', function (e) {
+      var features = map.current.queryRenderedFeatures(e.point)
+      var osmId = features[0].properties.osm_id
+      console.log('osm', osmId)
+    })
+
+    map.current.on('click', function (e) {
+      var features = map.current.queryRenderedFeatures(e.point)
+      if (!features.length) {
+        return
+      }
+      console.log(features)
+      if (typeof map.current.getLayer('selectedRoad') !== 'undefined') {
+        map.current.removeLayer('selectedRoad')
+        map.current.removeSource('selectedRoad')
+      }
+      var feature = features[0]
+      map.current.addSource('selectedRoad', {
+        type: 'geojson',
+        data: feature.toJSON(),
+      })
+      map.current.addLayer({
+        id: 'selectedRoad',
+        type: 'line',
+        source: 'selectedRoad',
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round',
+        },
+        paint: {
+          'line-color': 'yellow',
+          'line-width': 8,
+        },
       })
     })
   }, [])
 
   return (
     <Container style={{ width: '100%', height: '100%' }}>
-      <Box>
-        <Typography variant="body1">{`lat: ${lat} lng: ${lng}`}</Typography>
-      </Box>
+      <BasicLineChart data={mockData} />
       <Box style={{ width: '100%', height: 600 }} ref={mapContainer} />
     </Container>
   )
