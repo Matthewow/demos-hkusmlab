@@ -11,7 +11,7 @@ function App() {
         <Routes>
           {RoutesConfig.map((route) => (
             <Route
-              key={route.path}
+              key={route.name}
               path={route.path}
               element={route.component}
             />

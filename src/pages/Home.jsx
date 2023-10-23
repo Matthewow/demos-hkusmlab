@@ -66,12 +66,12 @@ export const HomePage = () => {
 
         <Box>
           {RoutesConfig.map((route) => {
-            if (route.path === '/') return <></>
+            if (route.path === '/') return <Box key={route.name}></Box>
             return (
-              <>
+              <Box key={route.name}>
                 <Divider />
                 <Stack
-                  key={route.path}
+                  key={route.name}
                   sx={{ my: 5 }}
                   spacing={2}
                   alignItems="flex-start"
@@ -92,7 +92,7 @@ export const HomePage = () => {
                     Go to demo ➤
                   </Button>
                 </Stack>
-              </>
+              </Box>
             )
           })}
         </Box>
