@@ -1,30 +1,49 @@
 import { Box, Container, Typography } from '@mui/material'
 import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
 import { useEffect, useRef, useState } from 'react'
-import { appConfigs } from '../appConfigs'
+import { appConfigs } from '../../../appConfigs'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { LineChart } from '@mui/x-charts/LineChart'
 
 mapboxgl.accessToken = appConfigs.mapboxAccessToken
 
-function BasicLineChart({ data }) {
+function StackedLineChart({ data }) {
   return (
     <LineChart
       xAxis={[
         {
-          data: Array.from({ length: 24 }, (v, k) => k),
+          id: 'Time',
+          data: Array.from({ length: 24 }, (_, k) => k),
           valueFormatter: (v) => `${v}:00-${v + 1}:00`,
         },
       ]}
-      colors={['#1976d2']}
       series={[
         {
-          data: data,
+          id: 'France',
+          label: 'French GDP per capita',
+          data: data[0],
+          stack: 'total',
           area: true,
-          label: 'Hourly Traffic Flow',
+          showMark: false,
+        },
+        {
+          id: 'Germany',
+          label: 'German GDP per capita',
+          data: data[1],
+          stack: 'total',
+          area: true,
+          showMark: false,
+        },
+        {
+          id: 'United Kingdom',
+          label: 'UK GDP per capita',
+          data: data[2],
+          stack: 'total',
+          area: true,
+          showMark: false,
         },
       ]}
-      height={300}
+      height={400}
     />
   )
 }
@@ -34,9 +53,11 @@ export const MapContainer = (props) => {
   const map = useRef(null)
   const [lng, setLng] = useState(114.1694)
   const [lat, setLat] = useState(22.3193)
-  const [zoom, setZoom] = useState(14)
-  const [mockData, setMockData] = useState(
-    Array.from({ length: 24 }, () => Math.floor(Math.random() * 31))
+  const [zoom, setZoom] = useState(15)
+  const [selectedRoadData, setSelectedRoadData] = useState(
+    Array.from({ length: 3 }, () =>
+      Array.from({ length: 24 }, () => Math.floor(Math.random() * 100))
+    )
   )
 
   useEffect(() => {
@@ -56,14 +77,8 @@ export const MapContainer = (props) => {
       setZoom(map.current.getZoom().toFixed(2))
     })
 
-    map.current.on('click', 'road-layer', function (e) {
-      var features = map.current.queryRenderedFeatures(e.point)
-      var osmId = features[0].properties.osm_id
-      console.log('osm', osmId)
-    })
-
     map.current.on('click', function (e) {
-      var features = map.current.queryRenderedFeatures(e.point)
+      const features = map.current.queryRenderedFeatures(e.point)
       if (!features.length) {
         return
       }
@@ -72,7 +87,10 @@ export const MapContainer = (props) => {
         map.current.removeLayer('selectedRoad')
         map.current.removeSource('selectedRoad')
       }
-      var feature = features[0]
+      const feature = features[0]
+      const osmID = feature.id
+      if (osmID === undefined) return
+
       map.current.addSource('selectedRoad', {
         type: 'geojson',
         data: feature.toJSON(),
@@ -93,9 +111,11 @@ export const MapContainer = (props) => {
     })
   }, [])
 
+  console.log(selectedRoadData)
   return (
     <Container style={{ width: '100%', height: '100%' }}>
-      <BasicLineChart data={mockData} />
+      {selectedRoadData ? <StackedLineChart data={selectedRoadData} /> : null}
+
       <Box style={{ width: '100%', height: 600 }} ref={mapContainer} />
     </Container>
   )

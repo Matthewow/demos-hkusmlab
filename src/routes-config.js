@@ -2,7 +2,7 @@ import { DriverOrderMatchingPage } from './pages/DriverOrderMatching'
 import { HomePage } from './pages/Home'
 import { MarketReactionPage } from './pages/MarketReaction'
 import { SimulatorPlatform } from './pages/SimulatorPlatform'
-import { TrafficFlowVisualization } from './pages/TrafficFlowVisualization'
+import { TrafficFlowVisualization } from './pages/traffic-flow-visualization/TrafficFlowVisualization'
 
 export const RoutesConfig = [
   {

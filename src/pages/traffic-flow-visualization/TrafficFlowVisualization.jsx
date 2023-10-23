@@ -1,7 +1,7 @@
 import React from 'react'
-import { DemoContainer } from '../containers/DemoContainer'
+import { DemoContainer } from '../../containers/DemoContainer'
 import { Box, Typography } from '@mui/material'
-import { MapContainer } from '../components/TrafficFlowMap'
+import { MapContainer } from './components/Map'
 
 const title = `Visualization of Urban Road Traffic Flow in Hong Kong`
 const about = () => {
