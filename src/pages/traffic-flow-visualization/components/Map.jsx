@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { appConfigs } from '../../../appConfigs'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { LineChart } from '@mui/x-charts/LineChart'
+import { trafficFlowPost } from '../../../utils/http'
 
 mapboxgl.accessToken = appConfigs.mapboxAccessToken
 
@@ -82,7 +83,6 @@ export const MapContainer = (props) => {
       if (!features.length) {
         return
       }
-      console.log(features)
       if (typeof map.current.getLayer('selectedRoad') !== 'undefined') {
         map.current.removeLayer('selectedRoad')
         map.current.removeSource('selectedRoad')
@@ -90,6 +90,44 @@ export const MapContainer = (props) => {
       const feature = features[0]
       const osmID = feature.id
       if (osmID === undefined) return
+
+      console.log(`feature: ========`)
+      console.log(features)
+
+      const query = `
+        [out:json];
+        way(around:1000,${e.lngLat.lat},${e.lngLat.lng})["highway"];
+        (._;>;);
+        out;
+      `
+      console.log(query, osmID)
+      const overpassUrl = 'https://overpass-api.de/api/interpreter'
+      // Fetch data from Overpass API
+      fetch(`${overpassUrl}?data=${encodeURIComponent(query)}`)
+        .then((response) => response.json())
+        .then((data) => {
+          // Check if there are elements in the response
+          if (data.elements.length > 0) {
+            // Find the first way element (which represents a road)
+            const road = data.elements.find((element) => element.type === 'way')
+            console.log(`OSM API:`, road)
+            if (road) {
+              trafficFlowPost(road.id).then((res) => {
+                console.log(feature.properties)
+                console.log(res)
+              })
+            } else {
+              console.log(
+                '1No road found within 1000 meters of the specified location.'
+              )
+            }
+          } else {
+            console.log(
+              '2No features found within 1000 meters of the specified location.'
+            )
+          }
+        })
+        .catch((error) => console.error('Error:', error))
 
       map.current.addSource('selectedRoad', {
         type: 'geojson',
@@ -111,7 +149,7 @@ export const MapContainer = (props) => {
     })
   }, [])
 
-  console.log(selectedRoadData)
+  // console.log(selectedRoadData)
   return (
     <Container style={{ width: '100%', height: '100%' }}>
       {selectedRoadData ? <StackedLineChart data={selectedRoadData} /> : null}

@@ -27,3 +27,22 @@ export function marketReactionPost(price_fluctuation = 1, fleet_size = 18000) {
       })
   })
 }
+
+export function trafficFlowPost(osmId) {
+  const url = `http://47.243.58.57:3000/get_trafficflow`
+  // const trimedOSMId = osmId.toString().slice(0, -1)
+
+  const data = {
+    nodeid: [osmId],
+  }
+  return new Promise((resolve, reject) => {
+    axios
+      .post(url, data)
+      .then((res) => {
+        resolve(res.data[0])
+      })
+      .catch((err) => {
+        reject(err)
+      })
+  })
+}
