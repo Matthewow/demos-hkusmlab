@@ -3,7 +3,7 @@ import axios from 'axios'
 import TextField from '@mui/material/TextField'
 import Autocomplete from '@mui/material/Autocomplete'
 import CircularProgress from '@mui/material/CircularProgress'
-import { appConfigs } from '../appConfigs'
+import { appConfigs } from '../../../../appConfigs'
 
 const LocationSearch = ({ setCorrdinates }) => {
   const [loading, setLoading] = useState(false)

@@ -3,7 +3,7 @@ import { HomePage } from './pages/Home'
 import { MarketReactionPage } from './pages/MarketReaction'
 import { SimulatorPlatform } from './pages/SimulatorPlatform'
 import { TrafficFlowVisualization } from './pages/traffic-flow-visualization/TrafficFlowVisualization'
-import { NavigationRideHailingPage } from './pages/NavigationRideHailing'
+import { NavigationRideHailingPage } from './pages/traffic-flow-visualization/navigation-ride-hailing/NavigationRideHailing'
 
 export const RoutesConfig = [
   {

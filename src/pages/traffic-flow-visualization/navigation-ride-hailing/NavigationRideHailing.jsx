@@ -1,10 +1,10 @@
 import React from 'react'
 import { Box, Tab, Typography } from '@mui/material'
-import { DemoContainer } from '../containers/DemoContainer'
+import { DemoContainer } from '../../../containers/DemoContainer'
 import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
-import LocationSearch from '../components/LocationSerach'
+import LocationSearch from './components/LocationSerach'
 
 const title = `Visualization of Urban Road Traffic Flow in Hong Kong`
 const about = () => {
