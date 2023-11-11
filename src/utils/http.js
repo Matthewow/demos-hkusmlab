@@ -28,12 +28,10 @@ export function marketReactionPost(price_fluctuation = 1, fleet_size = 18000) {
   })
 }
 
-export function trafficFlowPost(osmId) {
-  const url = `http://47.243.58.57:3000/get_trafficflow`
-  // const trimedOSMId = osmId.toString().slice(0, -1)
-
+export function trafficFlowPost(coordinates) {
+  const url = `http://47.243.58.57:3000/get_trafficflow_coords`
   const data = {
-    nodeid: [osmId],
+    coordinates: coordinates,
   }
   return new Promise((resolve, reject) => {
     axios
