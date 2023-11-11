@@ -65,8 +65,8 @@ function StackedLineChart({ data }) {
 export const MapContainer = (props) => {
   const mapContainer = useRef(null)
   const map = useRef(null)
-  const [lng, setLng] = useState(114.1694)
-  const [lat, setLat] = useState(22.3193)
+  const [lng, setLng] = useState(appConfigs.hongkongCenter.lat)
+  const [lat, setLat] = useState(appConfigs.hongkongCenter.lng)
   const [zoom, setZoom] = useState(15)
   const [selectedRoadData, setSelectedRoadData] = useState(
     Array.from({ length: 3 }, () =>
@@ -101,7 +101,6 @@ export const MapContainer = (props) => {
         map.current.removeSource('selectedRoad')
       }
       const feature = features[0]
-      console.log(features)
       const osmID = feature.id
       if (osmID === undefined) return
 

@@ -7,6 +7,7 @@ import TabPanel from '@mui/lab/TabPanel'
 import LocationSearch from './components/LocationSerach'
 import CoordinateInput from './components/CoordinateInput'
 import { MapContainer } from './components/Map'
+import { appConfigs } from '../../appConfigs'
 
 const title = `Visualization of Urban Road Traffic Flow in Hong Kong`
 const about = () => {
@@ -27,7 +28,10 @@ const about = () => {
 
 export const NavigationRideHailingPage = () => {
   const [value, setValue] = React.useState('0')
-  const [coordinates, setCoordinates] = React.useState([1, 2])
+  const [coordinates, setCoordinates] = React.useState([
+    appConfigs.hongkongCenter.lng,
+    appConfigs.hongkongCenter.lat,
+  ])
   const handleChange = (_, newValue) => {
     setValue(newValue)
   }
@@ -40,6 +44,7 @@ export const NavigationRideHailingPage = () => {
         height={600}
       >
         <Grid container>
+          {/* Seletion Part */}
           <Grid item xs={6}>
             <Box
               sx={{
@@ -49,7 +54,6 @@ export const NavigationRideHailingPage = () => {
                 height: '100%',
               }}
             >
-              {/* Seletion Part */}
               <Box sx={{ width: '100%', typography: 'body1' }}>
                 <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
                   Choose Your Current Location
@@ -59,7 +63,6 @@ export const NavigationRideHailingPage = () => {
                   Kong. Inputted locations outside of Hong Kong will not be
                   accepted.
                 </Typography>
-                <Typography>{`${coordinates[0]}, ${coordinates[1]}`}</Typography>
                 <TabContext value={value}>
                   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange}>
@@ -78,6 +81,7 @@ export const NavigationRideHailingPage = () => {
             </Box>
           </Grid>
 
+          {/* Map Part */}
           <Grid item xs={6}>
             <Box
               sx={{
@@ -94,8 +98,6 @@ export const NavigationRideHailingPage = () => {
             </Box>
           </Grid>
         </Grid>
-
-        {/* Map Part */}
       </Box>
     </DemoContainer>
   )
