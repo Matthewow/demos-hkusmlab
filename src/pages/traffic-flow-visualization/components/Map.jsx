@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
 import { useEffect, useRef, useState } from 'react'
 import { appConfigs } from '../../../appConfigs'
@@ -28,7 +28,7 @@ function StackedLineChart({ data }) {
         {
           id: 'Time',
           data: Array.from({ length: 24 }, (_, k) => k),
-          valueFormatter: (v) => `${v}:00-${v + 1}:00`,
+          valueFormatter: (v) => `${v}:00`,
         },
       ]}
       series={[
@@ -36,19 +36,19 @@ function StackedLineChart({ data }) {
           id: 'Cruising',
           label: 'Cruising',
           data: data[0],
-          showMark: false,
+          showMark: true,
         },
         {
           id: 'Delivering',
           label: 'Delivering',
           data: data[1],
-          showMark: false,
+          showMark: true,
         },
         {
           id: 'Picking_Up',
           label: 'Picking up',
           data: data[2],
-          showMark: false,
+          showMark: true,
         },
       ]}
       height={400}
@@ -62,11 +62,10 @@ export const MapContainer = (props) => {
   const [lng, setLng] = useState(appConfigs.hongkongCenter.lng)
   const [lat, setLat] = useState(appConfigs.hongkongCenter.lat)
   const [zoom, setZoom] = useState(15)
-  const [selectedRoadData, setSelectedRoadData] = useState(
-    Array(3)
-      .fill()
-      .map(() => new Array(24).fill(0))
+  const [selectedRoadName, setSelectedRoadName] = useState(
+    'Click a road on the map to see its traffic flow'
   )
+  const [selectedRoadData, setSelectedRoadData] = useState(null)
 
   useEffect(() => {
     if (map.current) return // initialize map only once
@@ -95,14 +94,21 @@ export const MapContainer = (props) => {
         map.current.removeSource('selectedRoad')
       }
       const feature = features[0]
-      const osmID = feature.id
-      if (osmID === undefined) return
+      console.log(feature)
+      setSelectedRoadName(feature?.properties?.name)
 
       const coordinates = flattenArray(feature?.geometry?.coordinates)
-      trafficFlowPost(coordinates).then((res) => {
-        console.log('--->', res)
-        setSelectedRoadData(res)
-      })
+      trafficFlowPost(coordinates)
+        .then((res) => {
+          setSelectedRoadData(res)
+        })
+        .catch((err) => {
+          console.log(err)
+          if (err === 'No data') {
+            setSelectedRoadData(null)
+            setSelectedRoadName(`No data for ${feature?.properties?.name}`)
+          }
+        })
 
       map.current.addSource('selectedRoad', {
         type: 'geojson',
@@ -117,7 +123,7 @@ export const MapContainer = (props) => {
           'line-cap': 'round',
         },
         paint: {
-          'line-color': 'yellow',
+          'line-color': '#5b92eb',
           'line-width': 8,
         },
       })
@@ -127,9 +133,11 @@ export const MapContainer = (props) => {
   // console.log(selectedRoadData)
   return (
     <Container style={{ width: '100%', height: '100%' }}>
-      {selectedRoadData ? <StackedLineChart data={selectedRoadData} /> : null}
-
       <Box style={{ width: '100%', height: 600 }} ref={mapContainer} />
+      <Typography variant="body1" color="secondary" gutterBottom>
+        {selectedRoadName}
+      </Typography>
+      {selectedRoadData ? <StackedLineChart data={selectedRoadData} /> : null}
     </Container>
   )
 }

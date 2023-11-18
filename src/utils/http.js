@@ -38,6 +38,8 @@ export function trafficFlowPost(coordinates) {
     axios
       .post(url, body)
       .then((res) => {
+        console.log(res)
+        if (!res?.data[0]) reject('No data')
         resolve(getCountsArray(res?.data[0] || []))
       })
       .catch((err) => {
