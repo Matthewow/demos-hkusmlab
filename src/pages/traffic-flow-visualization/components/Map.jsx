@@ -33,27 +33,21 @@ function StackedLineChart({ data }) {
       ]}
       series={[
         {
-          id: 'France',
-          label: 'French GDP per capita',
+          id: 'Cruising',
+          label: 'Cruising',
           data: data[0],
-          stack: 'total',
-          area: true,
           showMark: false,
         },
         {
-          id: 'Germany',
-          label: 'German GDP per capita',
+          id: 'Delivering',
+          label: 'Delivering',
           data: data[1],
-          stack: 'total',
-          area: true,
           showMark: false,
         },
         {
-          id: 'United Kingdom',
-          label: 'UK GDP per capita',
+          id: 'Picking_Up',
+          label: 'Picking up',
           data: data[2],
-          stack: 'total',
-          area: true,
           showMark: false,
         },
       ]}
@@ -65,13 +59,13 @@ function StackedLineChart({ data }) {
 export const MapContainer = (props) => {
   const mapContainer = useRef(null)
   const map = useRef(null)
-  const [lng, setLng] = useState(appConfigs.hongkongCenter.lat)
-  const [lat, setLat] = useState(appConfigs.hongkongCenter.lng)
+  const [lng, setLng] = useState(appConfigs.hongkongCenter.lng)
+  const [lat, setLat] = useState(appConfigs.hongkongCenter.lat)
   const [zoom, setZoom] = useState(15)
   const [selectedRoadData, setSelectedRoadData] = useState(
-    Array.from({ length: 3 }, () =>
-      Array.from({ length: 24 }, () => Math.floor(Math.random() * 100 + 1))
-    )
+    Array(3)
+      .fill()
+      .map(() => new Array(24).fill(0))
   )
 
   useEffect(() => {
@@ -106,53 +100,9 @@ export const MapContainer = (props) => {
 
       const coordinates = flattenArray(feature?.geometry?.coordinates)
       trafficFlowPost(coordinates).then((res) => {
-        console.log(res)
+        console.log('--->', res)
+        setSelectedRoadData(res)
       })
-      var radius = 5 // radius in meters
-
-      fetch(
-        `https://overpass-api.de/api/interpreter?data=[out:json];way(around:${radius},${e.lngLat.lat},${e.lngLat.lng})[highway];out geom;`
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          var ways = data.elements.filter((el) => el.type === 'way')
-          // console.log(ways) // Array of OSM ways
-          console.log(data)
-        })
-
-      // let query = `
-      //   [out:json];
-      //   way(around:1000,${e.lngLat.lat},${e.lngLat.lng})["highway"];
-      //   (._;>;);
-      //   out;
-      // `
-      // const overpassUrl = 'https://overpass-api.de/api/interpreter'
-      // Fetch data from Overpass API
-      // fetch(`${overpassUrl}?data=${encodeURIComponent(query)}`)
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     // Check if there are elements in the response
-      //     if (data.elements.length > 0) {
-      //       // Find the first way element (which represents a road)
-      //       const road = data.elements.find((element) => element.type === 'way')
-      //       console.log(`OSM API:`, road)
-      //       if (road) {
-      //         trafficFlowPost(road.id).then((res) => {
-      //           console.log(feature.properties)
-      //           console.log(res)
-      //         })
-      //       } else {
-      //         console.log(
-      //           '1No road found within 1000 meters of the specified location.'
-      //         )
-      //       }
-      //     } else {
-      //       console.log(
-      //         '2No features found within 1000 meters of the specified location.'
-      //       )
-      //     }
-      //   })
-      //   .catch((error) => console.error('Error:', error))
 
       map.current.addSource('selectedRoad', {
         type: 'geojson',
@@ -172,7 +122,7 @@ export const MapContainer = (props) => {
         },
       })
     })
-  }, [])
+  }, [lng, lat, zoom])
 
   // console.log(selectedRoadData)
   return (
