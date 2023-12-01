@@ -138,8 +138,8 @@ export const MapContainer = (props) => {
       setZoom(map.current.getZoom().toFixed(2))
     })
 
-    const total = trafficData.length
-    let count = 0
+    // const total = trafficData.length
+    // let count = 0
 
     map.current.on('load', () => {
       loadDistrictBoundary()
