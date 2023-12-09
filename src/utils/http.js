@@ -67,3 +67,22 @@ function getCountsArray(data) {
 
   return result
 }
+
+export function navigationPost(coordinates) {
+  const url = `http://47.243.58.57:3003/api`
+  const body = {
+    coord: coordinates,
+  }
+  console.log(body)
+  return new Promise((resolve, reject) => {
+    axios
+      .post(url, body)
+      .then((res) => {
+        if (res.data?.route) resolve(res.data?.route)
+        else reject('No data')
+      })
+      .catch((err) => {
+        reject(err)
+      })
+  })
+}
