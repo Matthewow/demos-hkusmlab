@@ -42,12 +42,12 @@ export const RoutesConfig = [
     Jintao Ke at HKU and Prof. Hai Yang at HKUST. The simulation platform will
     be open for public use in the near future.`,
   },
-  {
-    name: 'Visualization of Urban Road Traffic Flow in Hong Kong',
-    path: '/hk-traffic-flow',
-    component: <TrafficFlowVisualization />,
-    description: `This demo showcases an interactive map interface for real-time traffic flow visualization in Hong Kong. Utilizing advanced geospatial technologies and sensor data, it provides detailed insights into city-wide traffic patterns. Users can view the overall traffic scenario or access granular data for specific roads, including real-time vehicle counts. This tool is valuable for urban planning, traffic management, and policy-making, aiding in data-driven decisions for sustainable city development. It serves city planners, traffic engineers, and the public with its accessible design and real-time data.`,
-  },
+  // {
+  //   name: 'Visualization of Urban Road Traffic Flow in Hong Kong',
+  //   path: '/hk-traffic-flow',
+  //   component: <TrafficFlowVisualization />,
+  //   description: `This demo showcases an interactive map interface for real-time traffic flow visualization in Hong Kong. Utilizing advanced geospatial technologies and sensor data, it provides detailed insights into city-wide traffic patterns. Users can view the overall traffic scenario or access granular data for specific roads, including real-time vehicle counts. This tool is valuable for urban planning, traffic management, and policy-making, aiding in data-driven decisions for sustainable city development. It serves city planners, traffic engineers, and the public with its accessible design and real-time data.`,
+  // },
   {
     name: 'Urban Navigation for Ride-Hailing Drivers in Hong Kong',
     path: '/urban-navigation',
