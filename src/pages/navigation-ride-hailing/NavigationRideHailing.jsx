@@ -9,19 +9,18 @@ import CoordinateInput from './components/CoordinateInput'
 import { MapContainer } from './components/Map'
 import { appConfigs } from '../../appConfigs'
 
-const title = `Visualization of Urban Road Traffic Flow in Hong Kong`
+const title = `Urban Navigation for Ride-Hailing Drivers in Hong Kong`
 const about = () => {
   return (
     <Typography variant="subtitle1" align="left" gutterBottom>
-      This demo showcases an interactive map interface for real-time traffic
-      flow visualization in Hong Kong. Utilizing advanced geospatial
-      technologies and sensor data, it provides detailed insights into city-wide
-      traffic patterns. Users can view the overall traffic scenario or access
-      granular data for specific roads, including real-time vehicle counts. This
-      tool is valuable for urban planning, traffic management, and
-      policy-making, aiding in data-driven decisions for sustainable city
-      development. It serves city planners, traffic engineers, and the public
-      with its accessible design and real-time data.
+      Urban Navigation for Ride-Hailing Drivers in Hong Kong" investigates the
+      navigation methods employed by taxi and Uber drivers. It explores the
+      challenges they face in efficiently picking up passengers and finding
+      optimal routes in Hong Kong's dynamic urban landscape. The study examines
+      factors such as traffic patterns, road infrastructure, and digital mapping
+      applications to enhance understanding and develop strategies for improving
+      the navigation experience. The findings aim to benefit both drivers and
+      passengers in the ride-hailing industry.
     </Typography>
   )
 }

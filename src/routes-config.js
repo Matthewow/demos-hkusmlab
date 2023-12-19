@@ -52,6 +52,6 @@ export const RoutesConfig = [
     name: 'Urban Navigation for Ride-Hailing Drivers in Hong Kong',
     path: '/urban-navigation',
     component: <NavigationRideHailingPage />,
-    description: `"Urban Navigation for Ride-Hailing Drivers in Hong Kong" investigates the navigation methods employed by taxi and Uber drivers. It explores the challenges they face in efficiently picking up passengers and finding optimal routes in Hong Kong's dynamic urban landscape. The study examines factors such as traffic patterns, road infrastructure, and digital mapping applications to enhance understanding and develop strategies for improving the navigation experience. The findings aim to benefit both drivers and passengers in the ride-hailing industry.`,
+    description: `Urban Navigation for Ride-Hailing Drivers in Hong Kong" investigates the navigation methods employed by taxi and Uber drivers. It explores the challenges they face in efficiently picking up passengers and finding optimal routes in Hong Kong's dynamic urban landscape. The study examines factors such as traffic patterns, road infrastructure, and digital mapping applications to enhance understanding and develop strategies for improving the navigation experience. The findings aim to benefit both drivers and passengers in the ride-hailing industry.`,
   },
 ]
