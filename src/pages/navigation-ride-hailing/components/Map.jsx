@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 import { appConfigs } from '../../../appConfigs'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { navigationPost } from '../../../utils/http'
-import arrowImage from '../../../images/arrow.png'
+import { calculateBearing } from '../utils/bearingCal'
+import { getMarker } from '../utils/getMarker'
 
 mapboxgl.accessToken = appConfigs.mapboxAccessToken
 
@@ -45,16 +46,7 @@ export const MapContainer = ({ lng_init, lat_init }) => {
         })
       })
 
-      const el = document.createElement('div')
-      el.className = 'marker'
-      el.style.backgroundImage = `url(${arrowImage})`
-      el.style.width = '30px'
-      el.style.height = '30px'
-      el.style.backgroundSize = 'contain'
-      el.style.backgroundRepeat = 'no-repeat'
-      el.style.zIndex = 1000
-
-      markerRef.current = new mapboxgl.Marker(el)
+      markerRef.current = new mapboxgl.Marker(getMarker())
         .setLngLat([lng, lat])
         .addTo(mapRef.current)
     }
@@ -75,10 +67,9 @@ export const MapContainer = ({ lng_init, lat_init }) => {
       markerRef.current.setLngLat([lng_init, lat_init])
 
       // Get the new route and draw it
-      navigationPost(`${lat_init}_${lng_init}`).then((newRoute) => {
-        // First, check if there's already a source for the route
+      navigationPost(lat_init, lng_init).then((newRoute) => {
+        console.log(newRoute)
         if (mapRef.current.getSource('route')) {
-          // Update the route data
           mapRef.current.getSource('route').setData({
             type: 'Feature',
             properties: {},
@@ -110,11 +101,19 @@ export const MapContainer = ({ lng_init, lat_init }) => {
               'line-cap': 'round',
             },
             paint: {
-              'line-color': '#fcba03', // Choose a color for the route line
+              'line-color': '#fcba03',
               'line-width': 6,
             },
           })
         }
+        markerRef.current.setRotation(
+          calculateBearing(
+            newRoute[0][1],
+            newRoute[0][0],
+            newRoute[1][1],
+            newRoute[1][0]
+          )
+        )
       })
     }
   }, [lng_init, lat_init])
