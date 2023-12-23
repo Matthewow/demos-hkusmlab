@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { appConfigs } from '../../../appConfigs'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { navigationPost } from '../../../utils/http'
+import arrowImage from '../../../images/arrow.png'
 
 mapboxgl.accessToken = appConfigs.mapboxAccessToken
 
@@ -44,7 +45,16 @@ export const MapContainer = ({ lng_init, lat_init }) => {
         })
       })
 
-      markerRef.current = new mapboxgl.Marker()
+      const el = document.createElement('div')
+      el.className = 'marker'
+      el.style.backgroundImage = `url(${arrowImage})`
+      el.style.width = '30px'
+      el.style.height = '30px'
+      el.style.backgroundSize = 'contain'
+      el.style.backgroundRepeat = 'no-repeat'
+      el.style.zIndex = 1000
+
+      markerRef.current = new mapboxgl.Marker(el)
         .setLngLat([lng, lat])
         .addTo(mapRef.current)
     }
