@@ -26,7 +26,7 @@ const about = () => {
 }
 
 export const NavigationRideHailingPage = () => {
-  const [value, setValue] = React.useState('0')
+  const [value, setValue] = React.useState('1')
   const [coordinates, setCoordinates] = React.useState([
     appConfigs.hongkongCenter.lng,
     appConfigs.hongkongCenter.lat,
@@ -65,13 +65,13 @@ export const NavigationRideHailingPage = () => {
                 <TabContext value={value}>
                   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange}>
-                      <Tab label="By Input Coordinates" value="0" />
+                      {/* <Tab label="By Input Coordinates" value="0" /> */}
                       <Tab label="By Searching a location" value="1" />
                     </TabList>
                   </Box>
-                  <TabPanel value="0">
+                  {/* <TabPanel value="0">
                     <CoordinateInput />
-                  </TabPanel>
+                  </TabPanel> */}
                   <TabPanel value="1">
                     <LocationSearch setCorrdinates={setCoordinates} />
                   </TabPanel>

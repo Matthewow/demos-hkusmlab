@@ -62,11 +62,9 @@ export const MapContainer = ({ lng_init, lat_init }) => {
   }, [])
   useEffect(() => {
     if (mapRef.current && markerRef.current) {
-      // Update map center and marker position
       mapRef.current.setCenter([lng_init, lat_init])
       markerRef.current.setLngLat([lng_init, lat_init])
 
-      // Get the new route and draw it
       navigationPost(lat_init, lng_init).then((newRoute) => {
         console.log(newRoute)
         if (mapRef.current.getSource('route')) {
